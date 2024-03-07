@@ -6,9 +6,8 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh 'source version.sh'
-        sh 'chmod +x build.sh'
-        sh 'sudo ./build.sh $am64version'
+        sh 'chmod +x package.sh'
+        sh 'sudo ./package.sh'
       }
     }
   }
