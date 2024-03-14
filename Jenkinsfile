@@ -7,7 +7,7 @@ pipeline {
     stage('build') {
       steps {
         sh 'chmod +x package.sh'
-        sh 'sudo ./package.sh'
+        sh './package.sh'
       }
     }
   }
