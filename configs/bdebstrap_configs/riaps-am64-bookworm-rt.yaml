@@ -61,7 +61,7 @@ mmdebstrap:
     - flex
     - gpsd
     - git
-    - gpio
+    #- gpio
     - htop
     - ifupdown
     - iptables
@@ -73,7 +73,7 @@ mmdebstrap:
     - libffi-dev
     - libgnutls30
     - libgnutls28-dev
-    - libgpio-dev
+    #- libgpio-dev
     - libhttp-parser-dev
     - libiio-utils
     - libjsoncpp-dev
