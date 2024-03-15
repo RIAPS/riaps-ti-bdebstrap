@@ -52,7 +52,7 @@ mmdebstrap:
     - apt-transport-https
     - autoconf
     - autogen
-	  - bison
+    - bison
     - byacc
     - can-utils
     - cargo
