@@ -126,8 +126,8 @@ mmdebstrap:
     - 'mkdir -p $1/etc/apt/preferences.d/'
     - 'printf "Package: *\nPin: origin TexasInstruments.github.io\nPin-Priority: 1001" >> $1/etc/apt/preferences.d/ti-debpkgs'
       # Setup ZMQ repo with draft APIs
-    - 'wget -O- https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/Debian_12/Release.key | gpg --dearmor | sudo tee /usr/share/keyrings/zeromq-archive-keyring.gpg >/dev/null'
-    - 'sudo echo "deb [signed-by=/usr/share/keyrings/zeromq-archive-keyring.gpg] http://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/Debian_12/ ./" >> /etc/apt/sources.list.d/zeromq.list'
+    - 'wget -O- https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/Debian_12/Release.key | gpg --dearmor | sudo tee $1/usr/share/keyrings/zeromq-archive-keyring.gpg >/dev/null'
+    - 'echo "deb [signed-by=/usr/share/keyrings/zeromq-archive-keyring.gpg] http://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/Debian_12/ ./" >> $1/etc/apt/sources.list.d/zeromq.list'
       # Setup Kernel post-install scripts
     - 'mkdir -p $1/etc/kernel/postinst.d/'
     - 'echo "PWD = $PWD"'
@@ -158,9 +158,10 @@ mmdebstrap:
     - '$BDEBSTRAP_HOOKS/enable-units "$1" resize_rootfs'
       # Add RIAPS Specific Hooks
       # Build key libraries
+    - 'chroot "$1" mkdir -p /tmp/riaps/'
     - 'upload target/riaps/install_files/external_build.sh /tmp/external_build.sh'
-    - 'chroot "$1" chmod a+x /tmp/external_build.sh'
-    - 'chroot "$1" /tmp/external_build.sh'
+    - 'chroot "$1" chmod a+x /tmp/riaps/external_build.sh'
+    - 'chroot "$1" /tmp/riaps/external_build.sh'
 
     # MM TODO: Things to add
     # riaps user account and files

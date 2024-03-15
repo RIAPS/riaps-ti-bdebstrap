@@ -1,4 +1,5 @@
-#!/bin/sh -e
+#!/usr/bin/env bash
+set -e
 
 # Note that using CMake with qemu for an arm 32 processor is a known issue
 # (https://gitlab.kitware.com/cmake/cmake/-/issues/20568). So doing individual builds
