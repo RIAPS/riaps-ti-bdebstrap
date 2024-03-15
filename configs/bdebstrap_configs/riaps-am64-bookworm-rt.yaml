@@ -60,7 +60,6 @@ mmdebstrap:
     - cmake
     - flex
     - gpsd
-    - grub-efi-arm
     - git
     - gpio
     - htop
@@ -115,8 +114,6 @@ mmdebstrap:
     - tmux
     - uuid-dev
     - wget
-
-    - tmux
   mirrors:
     - http://deb.debian.org/debian
   setup-hooks:
