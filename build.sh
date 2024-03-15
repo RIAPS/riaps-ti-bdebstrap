@@ -62,7 +62,7 @@ do
 
     generate_rootfs ${build} ${machine} ${distro_variant}
     build_bsp ${build} ${machine} ${bsp_version}
-    #MM TODO:package_and_clean ${build}
+    package_and_clean ${build}
 
 done
 

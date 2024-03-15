@@ -13,7 +13,7 @@ pipeline {
   }
   post {
     success {
-      archiveArtifacts artifacts: '*.tar.xz', fingerprint: true
+      archiveArtifacts artifacts: 'build/riaps-am64-bookworm-*/*.wic.xz, logs/*.log', fingerprint: true
     }
   }
 }
