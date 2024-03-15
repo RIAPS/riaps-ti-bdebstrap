@@ -160,7 +160,7 @@ mmdebstrap:
     - 'chroot "$1" echo "deb [signed-by=/usr/share/keyrings/zeromq-archive-keyring.gpg] http://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/Debian_12/ ./" >> /etc/apt/sources.list.d/zeromq.list'
     - 'chroot "$1" apt-get install libzmq5 libzmq3-dev'
       # Build key libraries
-    - 'upload target/riaps/install_files/external_build.sh /tmp/external_build.sh'
+    - 'upload target/riaps/install_files/external_build.sh /tmp/riaps/external_build.sh'
     - 'chroot "$1" chmod a+x /tmp/riaps/external_build.sh'
     - 'chroot "$1" /tmp/riaps/external_build.sh'
 
