@@ -56,12 +56,12 @@ mmdebstrap:
     - byacc
     - can-utils
     - cargo
-    - chrony
+    # build: conflicts with systemd-timesyncd, time-daemon - chrony
     - cmake
     - flex
     - gpsd
     - git
-    #- gpio
+    # build: package not found - gpio
     - htop
     - ifupdown
     - iptables
@@ -73,7 +73,7 @@ mmdebstrap:
     - libffi-dev
     - libgnutls30
     - libgnutls28-dev
-    #- libgpio-dev
+    # build: package not found - libgpio-dev
     - libhttp-parser-dev
     - libiio-utils
     - libjsoncpp-dev
@@ -92,6 +92,8 @@ mmdebstrap:
     - libtool-bin
     - libuuid1
     - linuxptp
+    - libzmq5
+    - libzmq3-dev
     - make
     - nano
     - nettle-dev
@@ -123,6 +125,9 @@ mmdebstrap:
       # Setup Apt repository preferences
     - 'mkdir -p $1/etc/apt/preferences.d/'
     - 'printf "Package: *\nPin: origin TexasInstruments.github.io\nPin-Priority: 1001" >> $1/etc/apt/preferences.d/ti-debpkgs'
+      # Setup ZMQ repo with draft APIs
+    - 'wget -O- https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/Debian_12/Release.key | gpg --dearmor | sudo tee /usr/share/keyrings/zeromq-archive-keyring.gpg >/dev/null'
+    - 'sudo echo "deb [signed-by=/usr/share/keyrings/zeromq-archive-keyring.gpg] http://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/Debian_12/ ./" >> /etc/apt/sources.list.d/zeromq.list'
       # Setup Kernel post-install scripts
     - 'mkdir -p $1/etc/kernel/postinst.d/'
     - 'echo "PWD = $PWD"'
@@ -152,3 +157,11 @@ mmdebstrap:
     - 'upload target/resize_rootfs/resize_rootfs.service /etc/systemd/system/resize_rootfs.service'
     - '$BDEBSTRAP_HOOKS/enable-units "$1" resize_rootfs'
 
+    # MM TODO: Things to add
+    # riaps user account and files
+    # enable rng-tools.service - upload and enable-units
+    # add watchdog timer: kernel.panic_on_oops, kernel.panic, vm.oom-kill
+    # setup host name: upload sethostname files and enable service
+    # set date (rdate) - needed?
+    # network setups
+    # python install: venv setup and installs
