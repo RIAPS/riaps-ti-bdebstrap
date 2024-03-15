@@ -156,6 +156,11 @@ mmdebstrap:
     - 'chroot "$1" mkdir -p /etc/systemd/system/'
     - 'upload target/resize_rootfs/resize_rootfs.service /etc/systemd/system/resize_rootfs.service'
     - '$BDEBSTRAP_HOOKS/enable-units "$1" resize_rootfs'
+      # Add RIAPS Specific Hooks
+      # Build key libraries
+    - 'upload target/riaps/install_files/external_build.sh /tmp/external_build.sh'
+    - 'chroot "$1" chmod a+x /tmp/external_build.sh'
+    - 'chroot "$1" /tmp/external_build.sh'
 
     # MM TODO: Things to add
     # riaps user account and files
@@ -164,4 +169,4 @@ mmdebstrap:
     # setup host name: upload sethostname files and enable service
     # set date (rdate) - needed?
     # network setups
-    # python install: venv setup and installs
+    # python install: venv setup and installs, add opendht separate

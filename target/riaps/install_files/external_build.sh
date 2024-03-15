@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-set -e
+#!/bin/sh -e
 
 # Note that using CMake with qemu for an arm 32 processor is a known issue
 # (https://gitlab.kitware.com/cmake/cmake/-/issues/20568). So doing individual builds
@@ -11,9 +10,6 @@ build_external_libraries() {
     build_czmq
     build_zyre
     build_opendht
-    if [ "$NODE_ARCH" = "armhf" ]; then
-        build_libsoc
-    fi
     build_libply
     sudo ldconfig
     echo ">>>>> built all external libraries"
@@ -148,7 +144,7 @@ build_opendht() {
     git checkout v3.1.6
     start=`date +%s`
     ./autogen.sh
-    ./configure --prefix=/usr/local
+    ./configure --prefix=/usr/local --disable-python
     make -j2
     sudo make install
     end=`date +%s`
