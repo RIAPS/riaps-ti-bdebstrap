@@ -163,7 +163,7 @@ mmdebstrap:
     - 'chroot "$1" mv /tmp/riaps/Release.key.gpg /usr/share/keyrings/zeromq-archive-keyring.gpg'
     - 'upload target/riaps/sysfiles/zeromq.list /etc/apt/sources.list.d/zeromq.list'
     - 'chroot "$1" apt-get update'
-    - 'chroot "$1" apt-get install libzmq5 libzmq3-dev'
+    - 'chroot "$1" apt-get install libzmq5 libzmq3-dev -y'
       # Build key libraries
     - 'upload target/riaps/install_files/external_build.sh /etc/riaps/external_build.sh'
     - 'chroot "$1" chmod a+x /etc/riaps/external_build.sh'
