@@ -30,8 +30,8 @@ mmdebstrap:
     - vim
     - k3conf
     - weston
-    - linux-image-6.1.69-rt21-k3-rt
-    - linux-headers-6.1.69-rt21-k3-rt
+    - linux-image-6.1.80-rt26-k3-rt
+    - linux-headers-6.1.80-rt26-k3-rt
     - linux-libc-dev
     - cryptodev-linux-dkms
     - firmware-ti-ipc-am64
@@ -155,10 +155,16 @@ mmdebstrap:
     - '$BDEBSTRAP_HOOKS/enable-units "$1" resize_rootfs'
       # Add RIAPS Specific Hooks
     - 'chroot "$1" mkdir -p /tmp/riaps/'
+    - 'chroot "$1" mkdir -p /etc/riaps/'
       # Setup ZMQ repo with draft APIs
-    - 'chroot "$1" wget -O- https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/Debian_12/Release.key | gpg --dearmor | sudo tee /usr/share/keyrings/zeromq-archive-keyring.gpg >/dev/null'
+    - 'chroot "$1" echo "Command discovery: chroot $1"'
+    - 'chroot "$1" wget https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/Debian_12/Release.key -P /tmp/riaps'
+    - 'chroot "$1" gpg --dearmor /tmp/riaps/Release.key'
+    - 'chroot "$1" mv /tmp/riaps/Release.key.gpg /usr/share/keyrings/zeromq-archive-keyring.gpg'
     - 'chroot "$1" echo "deb [signed-by=/usr/share/keyrings/zeromq-archive-keyring.gpg] http://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/Debian_12/ ./" >> /etc/apt/sources.list.d/zeromq.list'
+    - 'chroot "$1" apt-get update'
     - 'chroot "$1" apt-get install libzmq5 libzmq3-dev'
+    - 'chroot "$1" echo "Completed ZMQ apt setup"'
       # Build key libraries
     - 'upload target/riaps/install_files/external_build.sh /tmp/riaps/external_build.sh'
     - 'chroot "$1" chmod a+x /tmp/riaps/external_build.sh'
