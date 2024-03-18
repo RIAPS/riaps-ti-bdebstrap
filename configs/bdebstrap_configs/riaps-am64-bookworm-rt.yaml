@@ -161,7 +161,7 @@ mmdebstrap:
     - 'chroot "$1" wget https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/Debian_12/Release.key -P /tmp/riaps'
     - 'chroot "$1" gpg --dearmor /tmp/riaps/Release.key'
     - 'chroot "$1" mv /tmp/riaps/Release.key.gpg /usr/share/keyrings/zeromq-archive-keyring.gpg'
-    - upload target/riaps/sysfiles/zeromq.list /etc/apt/sources.list.d/zeromq.list'
+    - 'upload target/riaps/sysfiles/zeromq.list /etc/apt/sources.list.d/zeromq.list'
     - 'chroot "$1" apt-get update'
     - 'chroot "$1" apt-get install libzmq5 libzmq3-dev'
       # Build key libraries
