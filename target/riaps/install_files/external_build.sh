@@ -195,3 +195,5 @@ build_libply() {
     diff=`expr $end - $start`
     echo ">>>>> Execution time was $(($diff/60)) minutes and $(($diff%60)) seconds."
 }
+
+build_external_libraries
