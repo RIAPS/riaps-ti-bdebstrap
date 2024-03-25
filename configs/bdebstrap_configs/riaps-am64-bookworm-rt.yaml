@@ -45,6 +45,7 @@ mmdebstrap:
     - pru-pssp
     - parted
     - e2fsprogs
+    # RIAPS Platform Packages
     - apparmor
     - apparmor-profiles
     - apparmor-profiles-extra
@@ -108,6 +109,7 @@ mmdebstrap:
     - python3-pkgconfig
     - python3-setuptools
     - python3-smbus
+    - python3.11-venv
     - rdate
     - rng-tools
     - rsyslog
@@ -161,9 +163,38 @@ mmdebstrap:
     - 'chroot "$1" wget https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/Debian_12/Release.key -P /tmp/riaps'
     - 'chroot "$1" gpg --dearmor /tmp/riaps/Release.key'
     - 'chroot "$1" mv /tmp/riaps/Release.key.gpg /usr/share/keyrings/zeromq-archive-keyring.gpg'
-    - 'upload target/riaps/sysfiles/zeromq.list /etc/apt/sources.list.d/zeromq.list'
+    - 'upload target/riaps/sysfiles/etc/apt/sources.list.d/zeromq.list /etc/apt/sources.list.d/zeromq.list'
     - 'chroot "$1" apt-get update'
     - 'chroot "$1" apt-get install libzmq5 libzmq3-dev -y'
+      # Upload system files
+    - 'upload target/riaps/sysfiles/etc/sudoers.d/riaps /etc/sudoers.d/riaps'
+    - 'upload target/riaps/sysfiles/etc/systemd/system/sethostname.service /etc/systemd/system/sethostname.service'
+    - 'upload target/riaps/sysfiles/usr/bin/set_unique_hostname /usr/bin/set_unique_hostname'
+    - 'chroot "#$1" chmod +x /usr/bin/set_unique_hostname'
+    - '$BDEBSTRAP_HOOKS/enable-units "$1" sethostname.service'
+      # Setup RIAPS User
+    - 'chroot "$1" useradd -m -c "RIAPS App Developer" riaps -s /bin/bash -d /home/riaps'
+    - 'chroot "$1" echo -e "riaps\nriaps" | sudo passwd riaps'
+    - 'chroot "$1" chmod 0755 /home/riaps'
+    - 'chroot "$1" usermod -aG sudo riaps'
+    - 'chroot "$1" mkdir -p /home/riaps/riaps_apps'
+    - 'chroot "$1" chown riaps:riaps /home/riaps/riaps_apps'
+    - 'chroot "$1" mkdir -p /home/riaps/.ssh'
+    - 'chroot "$1" chown riaps:riaps /home/riaps/.ssh'
+      # Update date
+    - 'chroot "$1" rdate -n -4 time.nist.gov'
+      # Setup Watchdog timer
+    - 'chroot "$1" echo " " >> /etc/sysctl.conf'
+    - 'chroot "$1" echo "###################################################################" >> /etc/sysctl.conf'
+    - 'chroot "$1" echo "# Enable Watchdog Timer on Kernel Panic and Kernel Oops" >> /etc/sysctl.conf'
+    - 'chroot "$1" echo "# Added for RIAPS Platform (01/25/18, MM)" >> /etc/sysctl.conf'
+    - 'chroot "$1" echo "# Enable OOM-Killer" >> /etc/sysctl.conf'
+    - 'chroot "$1" echo "# Added for RIAPS Platform (10/25/21, MM)" >> /etc/sysctl.conf'
+    - 'chroot "$1" echo "kernel.panic_on_oops = 1" >> /etc/sysctl.conf'
+    - 'chroot "$1" echo "kernel.panic = 5" >> /etc/sysctl.conf'
+    - 'chroot "$1" echo "vm.oom-kill = 1" >> /etc/sysctl.conf'
+      # Start random number generator
+    - '$BDEBSTRAP_HOOKS/enable-units "$1" systemctl start rng-tools.service'
       # Build key libraries
     - 'upload target/riaps/install_files/external_build.sh /opt/riaps/external_build.sh'
     - 'chroot "$1" chmod a+x /opt/riaps/external_build.sh'
@@ -171,10 +202,10 @@ mmdebstrap:
     #- 'chroot "$1" rm -R /opt/riaps' - uncomment this once the image looks good
 
     # MM TODO: Things to add
-    # riaps user account and files
-    # enable rng-tools.service - upload and enable-units
-    # add watchdog timer: kernel.panic_on_oops, kernel.panic, vm.oom-kill
-    # setup host name: upload sethostname files and enable service
-    # set date (rdate) - needed?
+    # riaps user device groups (gpio, dialout, pwm)
+    # cpu freq setup (needed?)
     # network setups
     # python install: venv setup and installs, add opendht separate
+    # remove packages used in external build, but not needed in image
+    # setup riaps repo 
+    # create riaps version file

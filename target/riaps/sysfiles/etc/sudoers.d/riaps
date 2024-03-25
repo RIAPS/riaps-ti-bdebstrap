@@ -1,0 +1,2 @@
+# Make riaps account passwordless
+%riaps ALL=NOPASSWD: ALL
