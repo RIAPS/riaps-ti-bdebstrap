@@ -173,8 +173,7 @@ mmdebstrap:
     - 'chroot "$1" chmod +x /usr/bin/set_unique_hostname'
     - '$BDEBSTRAP_HOOKS/enable-units "$1" sethostname.service'
       # Setup RIAPS User
-    - 'chroot "$1" useradd -m -c "RIAPS App Developer" riaps -s /bin/bash -d /home/riaps'
-    - 'chroot "$1" echo -e "riaps\nriaps" | sudo passwd riaps'
+    - 'chroot "$1" useradd -m -c "RIAPS App Developer" riaps -s /bin/bash -d /home/riaps -p "riaps"'
     - 'chroot "$1" chmod 0755 /home/riaps'
     - 'chroot "$1" usermod -aG sudo riaps'
     - 'chroot "$1" mkdir -p /home/riaps/riaps_apps'
