@@ -6,7 +6,6 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh 'sudo rm -rf tools/'
         sh 'chmod +x package.sh'
         sh './package.sh'
       }
