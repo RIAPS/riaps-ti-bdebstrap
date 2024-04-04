@@ -43,9 +43,9 @@ mmdebstrap:
     - parted
     - e2fsprogs
     # Pull RIAPS built Linux Kernel
-    - linux-image-6.1.80-rt26-k3-rt
-    - linux-headers-6.1.80-rt26-k3-rt
-    - linux-libc-dev
+    - linux-image-6.1.80-rt26-k3-rt=6.1.80-rt26-k3-rt-8
+    - linux-headers-6.1.80-rt26-k3-rt=6.1.80-rt26-k3-rt-8
+    - linux-libc-dev=6.1.80-rt26-k3-rt-8
     # RIAPS Platform Packages
     - apparmor
     - apparmor-profiles
@@ -132,7 +132,7 @@ mmdebstrap:
     - 'mkdir -p $1/etc/apt/preferences.d/'
     - 'printf "Package: *\nPin: origin TexasInstruments.github.io\nPin-Priority: 1001" >> $1/etc/apt/preferences.d/ti-debpkgs'
       # Prioritize customized Kernel for RIAPS
-    - 'printf "Package: linux-*\nPin: origin https://riaps.isis.vanderbilt.edu/aptrepo/\nPin-Priority: 1005" >> $1/etc/apt/preferences.d/riaps-debpkgs'
+    #- 'printf "Package: linux-*\nPin: origin https://riaps.isis.vanderbilt.edu/aptrepo/\nPin-Priority: 1005" >> $1/etc/apt/preferences.d/riaps-debpkgs'
       # Setup Kernel post-install scripts
     - 'mkdir -p $1/etc/kernel/postinst.d/'
     - 'echo "PWD = $PWD"'
