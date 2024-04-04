@@ -30,9 +30,6 @@ mmdebstrap:
     - vim
     - k3conf
     - weston
-    - linux-image-6.1.80-rt26-k3-rt
-    - linux-headers-6.1.80-rt26-k3-rt
-    - linux-libc-dev
     - cryptodev-linux-dkms
     - firmware-ti-ipc-am64
     - firmware-cnm-wave
@@ -45,6 +42,10 @@ mmdebstrap:
     - pru-pssp
     - parted
     - e2fsprogs
+    # Pull RIAPS built Linux Kernel
+    - linux-image-6.1.80-rt26-k3-rt
+    - linux-headers-6.1.80-rt26-k3-rt
+    - linux-libc-dev
     # RIAPS Platform Packages
     - apparmor
     - apparmor-profiles
@@ -72,6 +73,7 @@ mmdebstrap:
     - libboost-dev
     - libcap-dev
     - libcurl4-gnutls-dev
+    - libcurl4-openssl-dev
     - libffi-dev
     - libgnutls30
     - libgnutls28-dev
@@ -87,6 +89,8 @@ mmdebstrap:
     - libpcap0.8
     - libpcap-dev
     - libreadline-dev
+    - libssh-4
+    - libssh-dev
     - libssl3
     - libssl-dev
     - libsystemd-dev
@@ -111,7 +115,6 @@ mmdebstrap:
     - python3-smbus
     - python3.11-venv
     - rdate
-    - rng-tools
     - rsyslog
     - rustc
     - quota
@@ -128,6 +131,8 @@ mmdebstrap:
       # Setup Apt repository preferences
     - 'mkdir -p $1/etc/apt/preferences.d/'
     - 'printf "Package: *\nPin: origin TexasInstruments.github.io\nPin-Priority: 1001" >> $1/etc/apt/preferences.d/ti-debpkgs'
+      # Prioritize customized Kernel for RIAPS
+    - 'printf "Package: linux-*\nPin: origin https://riaps.isis.vanderbilt.edu/aptrepo/\nPin-Priority: 1005" >> $1/etc/apt/preferences.d/riaps-debpkgs'
       # Setup Kernel post-install scripts
     - 'mkdir -p $1/etc/kernel/postinst.d/'
     - 'echo "PWD = $PWD"'
@@ -159,6 +164,11 @@ mmdebstrap:
       # Add RIAPS Specific Hooks
     - 'chroot "$1" mkdir -p /tmp/riaps/'
     - 'chroot "$1" mkdir -p /opt/riaps'
+      # Setup RIAPS Apt repository (custom kernel found here)
+    - 'chroot "$1" wget https://riaps.isis.vanderbilt.edu/keys/riapspublic.key -P /tmp/riaps'
+    - 'chroot "$1" gpg --dearmor /tmp/riaps/riapspublic.key'
+    - 'chroot "$1" mv /tmp/riaps/riapspublic.key.gpg /usr/share/keyrings/riaps-archive-keyring.gpg'
+    - 'upload target/riaps/sysfiles/etc/apt/sources.list.d/riaps.list /etc/apt/sources.list.d/riaps.list'
       # Setup ZMQ repo with draft APIs
     - 'chroot "$1" wget https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/Debian_12/Release.key -P /tmp/riaps'
     - 'chroot "$1" gpg --dearmor /tmp/riaps/Release.key'
@@ -192,8 +202,6 @@ mmdebstrap:
     - 'chroot "$1" echo "kernel.panic_on_oops = 1" >> /etc/sysctl.conf'
     - 'chroot "$1" echo "kernel.panic = 5" >> /etc/sysctl.conf'
     - 'chroot "$1" echo "vm.oom-kill = 1" >> /etc/sysctl.conf'
-      # Start random number generator
-    - '$BDEBSTRAP_HOOKS/enable-units "$1" systemctl start rng-tools.service'
       # Build key libraries
     - 'upload target/riaps/install_files/external_build.sh /opt/riaps/external_build.sh'
     - 'chroot "$1" chmod a+x /opt/riaps/external_build.sh'
@@ -208,3 +216,7 @@ mmdebstrap:
     # remove packages used in external build, but not needed in image
     # setup riaps repo 
     # create riaps version file
+
+    # MM TODO: 
+    # Current issue - password not working for riaps account
+    # Find customize-hook for echo "am64xx-evm" > "$1/etc/hostname - may not be necessary
