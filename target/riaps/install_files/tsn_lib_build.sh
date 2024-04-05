@@ -8,8 +8,8 @@ build_tsn_libraries() {
     build_libnetconf2
     build_sysrepo
     build_netopeer2
-    build_nwconfigurator
     sudo ldconfig
+    build_nwconfigurator
     echo ">>>>> built all TSN libraries"
 }
 
@@ -23,7 +23,7 @@ build_libyang() {
     start=`date +%s`
     mkdir build 
     cd build
-    cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
+    cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..
     make -j2
     sudo make install
     cd $PREVIOUS_PWD
@@ -44,7 +44,7 @@ build_libnetconf2() {
     start=`date +%s`
     mkdir build 
     cd build
-    cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
+    cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..
     make -j2
     sudo make install
     cd $PREVIOUS_PWD
@@ -61,18 +61,12 @@ build_sysrepo() {
     PREVIOUS_PWD=$PWD
     TMP=`mktemp -d`
     start=`date +%s`
-    #git clone https://github.com/sysrepo/libredblack.git $TMP/libredblack
-    #cd $TMP/libredblack
-    #./configure --without-rbgen
-    #make
-    #sudo make install
-    #cd $PREVIOUS_PWD
     git clone https://github.com/sysrepo/sysrepo.git $TMP/sysrepo
     cd $TMP/sysrepo
     git checkout v2.2.150
     mkdir build 
     cd build
-    cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
+    cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..
     make -j2
     sudo make install
     sudo rm -rf $TMP
@@ -90,7 +84,7 @@ build_netopeer2() {
     cd $TMP/netopeer2
     git checkout v2.2.13
     start=`date +%s`
-    cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr .
+    cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local .
     make -j2
     sudo make install
     cd $PREVIOUS_PWD
@@ -99,6 +93,13 @@ build_netopeer2() {
     echo ">>>>> built netopeer2 library"
     diff=`expr $end - $start`
     echo ">>>>> Execution time was $(($diff/60)) minutes and $(($diff%60)) seconds."
+}
+
+#nw-configurator - depends on sysrepo
+build_nwconfigurator() {
+    gcc nw-configurator.c -o nw-configurator -lsysrepo
+    sudo cp nw-configurator /usr/local/bin/
+    echo ">>>>> built nw-configurator library"
 }
 
 build_tsn_libraries
