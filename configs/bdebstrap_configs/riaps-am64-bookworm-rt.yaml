@@ -88,6 +88,7 @@ mmdebstrap:
     - libncurses5-dev
     - libpcap0.8
     - libpcap-dev
+    - libpcre2-dev
     - libreadline-dev
     - libssh-4
     - libssh-dev
