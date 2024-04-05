@@ -80,7 +80,7 @@ build_sysrepo() {
 build_netopeer2() {
     PREVIOUS_PWD=$PWD
     TMP=`mktemp -d`
-    git clone https://github.com/CESNET/Netopeer2.git $TMP/netopeer2
+    git clone https://github.com/CESNET/netopeer2.git $TMP/netopeer2
     cd $TMP/netopeer2
     git checkout v2.2.13
     start=`date +%s`
