@@ -215,6 +215,7 @@ mmdebstrap:
     - 'chroot "$1" apt-get install libcurl4-openssl-dev -y'
     - 'upload target/riaps/install_files/tsn_lib_build.sh /opt/riaps/tsn_lib_build.sh'
     - 'upload target/riaps/install_files/nw-configurator.c /opt/riaps/nw-configurator.c'
+    - 'chroot "$1" chmod a+x /opt/riaps/tsn_lib_build.sh'
     - 'chroot "$1" /bin/bash -c "/opt/riaps/tsn_lib_build.sh" >"$1/opt/riaps/tsn_lib_build.log" 2>&1'
 
       # Setup place to pull out log files
