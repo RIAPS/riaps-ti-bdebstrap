@@ -178,8 +178,7 @@ mmdebstrap:
     - 'chroot "$1" apt-get update'
     - 'chroot "$1" apt-get install libzmq5 libzmq3-dev -y'
       # Install RIAPS built Linux kernel
-      # MM TODO: still getting errors in install, put this aside right now
-    #- 'chroot "$1" apt-get install linux-image-6.1.80-rt26-k3-rt=6.1.80-rt26-k3-rt-8 linux-headers-6.1.80-rt26-k3-rt=6.1.80-rt26-k3-rt-8 linux-libc-dev=6.1.80-rt26-k3-rt-8 -y'
+    - 'chroot "$1" apt-get install linux-image-6.1.80-rt26-k3-rt=6.1.80-rt26-k3-rt-6 linux-headers-6.1.80-rt26-k3-rt=6.1.80-rt26-k3-rt-6 linux-libc-dev=6.1.80-rt26-k3-rt-6 -y'
       # Upload system files
     - 'upload target/riaps/sysfiles/etc/sudoers.d/riaps /etc/sudoers.d/riaps'
     - 'upload target/riaps/sysfiles/etc/systemd/system/sethostname.service /etc/systemd/system/sethostname.service'
