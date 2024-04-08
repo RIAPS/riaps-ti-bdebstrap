@@ -178,7 +178,7 @@ mmdebstrap:
     - 'chroot "$1" apt-get update'
     - 'chroot "$1" apt-get install libzmq5 libzmq3-dev -y'
       # Install RIAPS built Linux kernel
-    - 'chroot "$1" apt-get install linux-image-6.1.80-rt26-k3-rt=6.1.80-rt26-k3-rt-6 linux-headers-6.1.80-rt26-k3-rt=6.1.80-rt26-k3-rt-6 linux-libc-dev=6.1.80-rt26-k3-rt-6 -y'
+    #- 'chroot "$1" apt-get install linux-image-6.1.80-rt26-k3-rt=6.1.80-rt26-k3-rt-6 linux-headers-6.1.80-rt26-k3-rt=6.1.80-rt26-k3-rt-6 linux-libc-dev=6.1.80-rt26-k3-rt-6 -y'
       # Upload system files
     - 'upload target/riaps/sysfiles/etc/sudoers.d/riaps /etc/sudoers.d/riaps'
     - 'upload target/riaps/sysfiles/etc/systemd/system/sethostname.service /etc/systemd/system/sethostname.service'
@@ -209,7 +209,7 @@ mmdebstrap:
     - 'upload target/riaps/install_files/external_build.sh /opt/riaps/external_build.sh'
     - 'chroot "$1" chmod a+x /opt/riaps/external_build.sh'
     # MM TODO: for the sake of time, remove this for the moment (concentrating on tsn build script)
-    #- 'chroot "$1" /bin/bash -c "/opt/riaps/external_build.sh" >"$1/opt/riaps/external_build.log" 2>&1'
+    - 'chroot "$1" /bin/bash -c "/opt/riaps/external_build.sh" >"$1/opt/riaps/external_build.log" 2>&1'
       # Setup TSN libraries
     - 'chroot "$1" apt-get remove libcurl4-gnutls-dev -y'
     - 'chroot "$1" apt-get install libcurl4-openssl-dev -y'
