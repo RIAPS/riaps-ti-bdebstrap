@@ -6,9 +6,7 @@ set -e
 build_tsn_libraries() {
     build_libyang
     build_libnetconf2
-    build_sysrepo
-    # MM TODO: temporarily while debugging other parts
-    #build_netopeer2
+    build_netopeer2
     sudo ldconfig
     build_nwconfigurator
     echo ">>>>> built all TSN libraries"
@@ -70,6 +68,7 @@ build_sysrepo() {
     cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..
     make -j2
     sudo make install
+    cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     end=`date +%s`
     echo ">>>>> built sysrepo library"
