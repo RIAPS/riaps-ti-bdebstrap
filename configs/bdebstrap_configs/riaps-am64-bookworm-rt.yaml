@@ -195,10 +195,10 @@ mmdebstrap:
     - 'chroot "$1" chown riaps:riaps /home/riaps/riaps_apps'
     - 'chroot "$1" mkdir -p /home/riaps/.ssh'
     - 'chroot "$1" chown riaps:riaps /home/riaps/.ssh'
-    - 'chroot "$1" getent group gpio || groupadd gpio'
-    - 'chroot "$1" usermod -aG gpio riaps'
-    - 'chroot "$1" getent group dialout || groupadd dialout'
-    - 'chroot "$1" usermod -aG dialout riaps'
+    #- 'chroot "$1" getent group gpio || groupadd gpio'
+    #- 'chroot "$1" usermod -aG gpio riaps'
+    #- 'chroot "$1" getent group dialout || groupadd dialout'
+    #- 'chroot "$1" usermod -aG dialout riaps'
       # Update date
     - 'chroot "$1" rdate -n -4 time.nist.gov'
       # Setup Watchdog timer
@@ -211,6 +211,7 @@ mmdebstrap:
     - 'chroot "$1" echo "kernel.panic_on_oops = 1" >> /etc/sysctl.conf'
     - 'chroot "$1" echo "kernel.panic = 5" >> /etc/sysctl.conf'
     - 'chroot "$1" echo "vm.oom-kill = 1" >> /etc/sysctl.conf'
+    # MM TODO: for future, hold off for now - 'upload target/riaps/sysfiles/etc/fstab /etc/fstab'
       # Build key libraries
     - 'upload target/riaps/install_files/external_build.sh /opt/riaps/external_build.sh'
     - 'upload target/riaps/install_files/python_installs.sh /opt/riaps/python_installs.sh'
@@ -232,6 +233,8 @@ mmdebstrap:
     - 'chroot "$1" chmod a+x /opt/riaps/python_installs.sh'
     - 'chroot "$1" /bin/bash -c "/opt/riaps/python_installs.sh" >"$1/opt/riaps/python_installs.log" 2>&1'
     - 'cp $1/opt/riaps/python_installs.log $1/../../../logs/python_installs.log' 
+      # Install RIAPS packages
+    - 'chroot "$1" apt-get install riaps-pycom riaps-timesync-arm64'
       # Install RIAPS built Linux kernel
     - 'chroot "$1" export KERNEL_DIR=/usr/src/linux-headers-6.1.80-rt26-k3-rt && apt-get install linux-image-6.1.80-rt26-k3-rt=6.1.80-rt26-k3-rt-6 linux-headers-6.1.80-rt26-k3-rt=6.1.80-rt26-k3-rt-6 linux-libc-dev=6.1.80-rt26-k3-rt-6 -y'
     #- 'chroot "$1" rm -R /opt/riaps' - uncomment this once the image looks good
