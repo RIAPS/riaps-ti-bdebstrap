@@ -187,7 +187,8 @@ mmdebstrap:
     - '$BDEBSTRAP_HOOKS/enable-units "$1" sethostname.service'
       # Setup RIAPS User
     - 'chroot "$1" useradd -m -c "RIAPS App Developer" riaps -s /bin/bash -d /home/riaps'
-    - 'chroot "$1" echo "riaps:riaps" | chpasswd'
+      # MM TODO: still causing errors - put aside for now
+    #- 'chroot "$1" echo "riaps:riaps" | chpasswd'
     - 'chroot "$1" chmod 0755 /home/riaps'
     - 'chroot "$1" usermod -aG sudo riaps'
     - 'chroot "$1" mkdir -p /home/riaps/riaps_apps'
@@ -241,6 +242,7 @@ mmdebstrap:
     # network setups
     # remove packages used in external build, but not needed in image
     # create riaps version file
+    # setup fstab and  uEnv.txt
 
     # MM TODO: 
     # Current issue - password not working for riaps account - testing fix (4/9)
