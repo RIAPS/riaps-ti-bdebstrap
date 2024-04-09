@@ -6,6 +6,7 @@ set -e
 build_tsn_libraries() {
     build_libyang
     build_libnetconf2
+    build_sysrepo
     build_netopeer2
     sudo ldconfig
     build_nwconfigurator

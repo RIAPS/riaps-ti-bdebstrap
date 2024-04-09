@@ -145,7 +145,7 @@ build_opendht() {
     git checkout v3.1.6
     start=`date +%s`
     ./autogen.sh
-    ./configure --prefix=/usr/local --disable-python
+    ./configure --prefix=/usr/local
     make -j2
     sudo make install
     end=`date +%s`
