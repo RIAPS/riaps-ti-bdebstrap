@@ -7,7 +7,8 @@ build_tsn_libraries() {
     build_libyang
     build_libnetconf2
     build_sysrepo
-    build_netopeer2
+    # MM TODO: temporarily while debugging other parts
+    #build_netopeer2
     sudo ldconfig
     build_nwconfigurator
     echo ">>>>> built all TSN libraries"
