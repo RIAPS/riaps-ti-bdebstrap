@@ -218,7 +218,7 @@ mmdebstrap:
     - 'chroot "$1" pip3 install Cython --break-system-packages --verbose'
     - 'chroot "$1" chmod a+x /opt/riaps/external_build.sh'
     # MM TODO: for the sake of time, remove this for the moment (concentrating on tsn build script)
-    - 'chroot "$1" /bin/bash -c "/opt/riaps/external_build.sh" >"$1/opt/riaps/external_build.log" 2>&1'
+    - 'chroot "$1" /bin/bash -c "/opt/riaps/external_build.sh" >"$1/opt/riaps/external_build.log" 2>&1 || true'
     - 'echo "Rootfs: $1"'
     - 'cp $1/opt/riaps/external_build.log $1/../../../logs/external_build.log'
       # Setup TSN libraries
@@ -227,14 +227,14 @@ mmdebstrap:
     - 'upload target/riaps/install_files/tsn_lib_build.sh /opt/riaps/tsn_lib_build.sh'
     - 'upload target/riaps/install_files/nw-configurator.c /opt/riaps/nw-configurator.c'
     - 'chroot "$1" chmod a+x /opt/riaps/tsn_lib_build.sh'
-    - 'chroot "$1" /bin/bash -c "/opt/riaps/tsn_lib_build.sh" >"$1/opt/riaps/tsn_lib_build.log" 2>&1'
+    - 'chroot "$1" /bin/bash -c "/opt/riaps/tsn_lib_build.sh" >"$1/opt/riaps/tsn_lib_build.log" 2>&1 || true'
     - 'cp $1/opt/riaps/tsn_lib_build.log $1/../../../logs/tsn_lib_build.log' 
       # Install python
     - 'chroot "$1" chmod a+x /opt/riaps/python_installs.sh'
-    - 'chroot "$1" /bin/bash -c "/opt/riaps/python_installs.sh" >"$1/opt/riaps/python_installs.log" 2>&1'
+    - 'chroot "$1" /bin/bash -c "/opt/riaps/python_installs.sh" >"$1/opt/riaps/python_installs.log" 2>&1 || true'
     - 'cp $1/opt/riaps/python_installs.log $1/../../../logs/python_installs.log' 
       # Install RIAPS packages
-    - 'chroot "$1" apt-get install riaps-pycom riaps-timesync-arm64'
+    # MM TODO: work in progress here - 'chroot "$1" apt-get install riaps-pycom riaps-timesync-arm64'
       # Install RIAPS built Linux kernel
     - 'chroot "$1" export KERNEL_DIR=/usr/src/linux-headers-6.1.80-rt26-k3-rt && apt-get install linux-image-6.1.80-rt26-k3-rt=6.1.80-rt26-k3-rt-6 linux-headers-6.1.80-rt26-k3-rt=6.1.80-rt26-k3-rt-6 linux-libc-dev=6.1.80-rt26-k3-rt-6 -y'
     #- 'chroot "$1" rm -R /opt/riaps' - uncomment this once the image looks good
@@ -248,4 +248,4 @@ mmdebstrap:
     # setup fstab and  uEnv.txt
 
     # MM TODO: 
-    # Current issue - password not working for riaps account - testing fix (4/9)
+    # Current issue - password not working for riaps account 

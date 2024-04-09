@@ -8,7 +8,7 @@ spdlog_python_install() {
     git clone https://github.com/RIAPS/spdlog-python.git $TMP/spdlog-python
     cd $TMP/spdlog-python
     git clone -b v1.10.0 --depth 1 https://github.com/gabime/spdlog.git
-    sudo python3 setup.py install --break-system-packages
+    sudo python3 setup.py install
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> installed spdlog"
@@ -19,7 +19,7 @@ apparmor_monkeys_install() {
     TMP=`mktemp -d`
     git clone https://github.com/RIAPS/apparmor_monkeys.git $TMP/apparmor_monkeys
     cd $TMP/apparmor_monkeys
-    sudo python3 setup.py install --break-system-packages
+    sudo python3 setup.py install
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> installed apparmor_monkeys"
@@ -65,7 +65,7 @@ zyre_pybindings_install(){
 
 # Link pycapnp with installed library. Must be run after capnproto install.
 pycapnp_install() {
-    sudo pip3 install pkgconfig --verbose
+    sudo pip3 install pkgconfig --break-system-packages --verbose
     PREVIOUS_PWD=$PWD
     TMP=`mktemp -d`
     git clone https://github.com/capnproto/pycapnp.git $TMP/pycapnp
@@ -85,7 +85,7 @@ prctl_install() {
     git clone https://github.com/RIAPS/python-prctl.git $TMP/python-prctl
     cd $TMP/python-prctl/
     git checkout feature-ambient
-    sudo python3 setup.py install --break-system-packages
+    sudo python3 setup.py install 
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> installed prctl"
