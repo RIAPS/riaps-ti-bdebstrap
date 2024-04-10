@@ -236,7 +236,7 @@ mmdebstrap:
       # Install RIAPS packages
     # MM TODO: work in progress here - 'chroot "$1" apt-get install riaps-pycom riaps-timesync-arm64'
       # Install RIAPS built Linux kernel
-    - 'chroot "$1" export KERNEL_DIR=/usr/src/linux-headers-6.1.80-rt26-k3-rt && apt-get install linux-image-6.1.80-rt26-k3-rt=6.1.80-rt26-k3-rt-6 linux-headers-6.1.80-rt26-k3-rt=6.1.80-rt26-k3-rt-6 linux-libc-dev=6.1.80-rt26-k3-rt-6 -y'
+    #- 'chroot "$1" export KERNEL_DIR=$1/usr/src/linux-headers-6.1.80-rt26-k3-rt && apt-get install linux-image-6.1.80-rt26-k3-rt=6.1.80-rt26-k3-rt-6 linux-headers-6.1.80-rt26-k3-rt=6.1.80-rt26-k3-rt-6 linux-libc-dev=6.1.80-rt26-k3-rt-6 -y'
     #- 'chroot "$1" rm -R /opt/riaps' - uncomment this once the image looks good
 
     # MM TODO: Things to add
