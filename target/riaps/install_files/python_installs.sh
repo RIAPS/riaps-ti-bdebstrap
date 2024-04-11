@@ -25,13 +25,18 @@ apparmor_monkeys_install() {
     echo ">>>>> installed apparmor_monkeys"
 }
 
+# MM TODO: issue - checkout out v25.1.2 still installs pyzmq-26.0.0b2
+# NOTE: DEPRECATION: --no-binary currently disables reading from the cache of locally built wheels. 
+# In the future --no-binary will not influence the wheel cache. pip 23.1 will enforce this behaviour 
+# change. A possible replacement is to use the --no-cache-dir option.
 pyzmq_install(){
     PREVIOUS_PWD=$PWD
     TMP=`mktemp -d`
     git clone https://github.com/zeromq/pyzmq.git $TMP/pyzmq
     cd $TMP/pyzmq
     git checkout v25.1.2
-    ZMQ_DRAFT_API=1 sudo -E pip install --break-system-packages -v --no-binary pyzmq --pre pyzmq
+    #ZMQ_DRAFT_API=1 sudo -E pip install --break-system-packages -v --no-binary pyzmq --pre pyzmq
+    ZMQ_DRAFT_API=1 sudo -E pip install --break-system-packages -v --no-binary pyzmq pyzmq
    cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> installed pyzmq"
@@ -121,21 +126,17 @@ cython_install() {
 # Since python installs needing Cython typically calls for the latest version, do not specify a version for this package
 pip3_3rd_party_installs(){
     pip3 install --break-system-packages 'redis==5.0.1' 'hiredis==2.3.2' --verbose
-    pip3 install --break-system-packages 'pydevd==2.9.6' 'netifaces2==0.0.19' --verbose
+    # MM TODO: moved to pydevd v3.0.3
+    pip3 install --break-system-packages 'pydevd==3.0.3' 'netifaces2==0.0.19' --verbose
     pip3 install --break-system-packages 'cgroups==0.1.0' 'cgroupspy==0.2.2' --verbose
     pip3 install --break-system-packages 'pyroute2==0.7.9' 'pyserial==3.5' --verbose
     pip3 install --break-system-packages 'pybind11==2.11.1' 'toml==0.10.2' 'pycryptodomex==3.19.0' --verbose
     pip3 install --break-system-packages 'rpyc==5.3.1' 'parse==1.19.1' 'butter==0.13.1' --verbose
     pip3 install --break-system-packages 'gpiod==1.5.4' 'spdlog==2.0.6' --verbose
-
-    if [ $LINUX_VERSION_INSTALL = "22.04" || $LINUX_VERSION_INSTALL = "12" ]; then
-        pip3 install --break-system-packages 'psutil==5.9.0' --verbose
-    fi
-    if [ $LINUX_VERSION_INSTALL = "12" ]; then
-        pip3 install --break-system-packages 'pyyaml==5.4.1' 'cryptography == 3.4.8' --verbose
-    fi
-
+    pip3 install --break-system-packages 'psutil==5.9.0' 'pyyaml==6.0.1' --verbose
+    # MM TODO: had to move pyyaml to 6.0.1 from 5.4.1 due to a build error
     pip3 install --break-system-packages 'paramiko==3.4.0' 'cryptography==3.4.8' --verbose
+    # MM TODO: cryptography is already installed in /usr/lib/python3/dist-packages with v38.0.4, put v3.4.8 in /usr/local/lib
     pip3 install --break-system-packages 'fabric2==3.2.2' --verbose
     echo ">>>>> installed pip3 packages"
 }

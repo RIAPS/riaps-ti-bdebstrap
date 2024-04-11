@@ -217,7 +217,6 @@ mmdebstrap:
     - 'upload target/riaps/install_files/python_installs.sh /opt/riaps/python_installs.sh'
     - 'chroot "$1" pip3 install Cython --break-system-packages --verbose'
     - 'chroot "$1" chmod a+x /opt/riaps/external_build.sh'
-    # MM TODO: for the sake of time, remove this for the moment (concentrating on tsn build script)
     - 'chroot "$1" /bin/bash -c "/opt/riaps/external_build.sh" >"$1/opt/riaps/external_build.log" 2>&1 || true'
     - 'echo "Rootfs: $1"'
     - 'cp $1/opt/riaps/external_build.log $1/../../../logs/external_build.log'
