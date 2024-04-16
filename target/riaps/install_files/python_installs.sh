@@ -14,11 +14,13 @@ spdlog_python_install() {
     echo ">>>>> installed spdlog"
 }
 
+# MM TODO:  the fix for Debian 11/12 is currently in the dev-imx8 branch
 apparmor_monkeys_install() {
     PREVIOUS_PWD=$PWD
     TMP=`mktemp -d`
     git clone https://github.com/RIAPS/apparmor_monkeys.git $TMP/apparmor_monkeys
     cd $TMP/apparmor_monkeys
+    git checkout dev-imx8
     sudo python3 setup.py install
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP

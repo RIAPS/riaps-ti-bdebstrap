@@ -232,6 +232,9 @@ mmdebstrap:
     - 'chroot "$1" chmod a+x /opt/riaps/python_installs.sh'
     - 'chroot "$1" /bin/bash -c "/opt/riaps/python_installs.sh" >"$1/opt/riaps/python_installs.log" 2>&1 || true'
     - 'cp $1/opt/riaps/python_installs.log $1/../../../logs/python_installs.log' 
+      # Set iptables to legacy version
+    - 'chroot "$1" update-alternatives --set iptables /usr/sbin/iptables-legacy'
+    - 'chroot "$1" update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy'
       # Install RIAPS packages
     # MM TODO: work in progress here - 'chroot "$1" apt-get install riaps-pycom riaps-timesync-arm64'
       # Install RIAPS built Linux kernel
