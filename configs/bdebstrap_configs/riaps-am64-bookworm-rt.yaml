@@ -68,6 +68,7 @@ mmdebstrap:
     - htop
     - ifupdown
     - iptables
+    - libavl1
     - libargon2-0-dev
     - libasio-dev
     - libboost-dev

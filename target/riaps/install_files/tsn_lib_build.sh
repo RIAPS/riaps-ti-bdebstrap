@@ -63,7 +63,7 @@ build_libnetconf2() {
 
 #libredblack - searching/sorter library
 # Latest commit is the one indicated in the Yocto recipe
-# MM TODO: does not compile on arm64 - so not using it for now
+# MM TODO: does not compile on arm64 - install libavl1 instead
 build_libredblack() {
     PREVIOUS_PWD=$PWD
     TMP=`mktemp -d`
@@ -144,8 +144,10 @@ build_netopeer2() {
 
 #nw-configurator - depends on sysrepo
 build_nwconfigurator() {
+    echo "Building nw-configurator in $PWD"
+    ls -al
     gcc nw-configurator.c -o nw-configurator -lsysrepo
-    sudo cp nw-configurator /usr/local/bin/
+    sudo cp nw-configurator /usr/local/bin/.
     echo ">>>>> built nw-configurator library"
 }
 
