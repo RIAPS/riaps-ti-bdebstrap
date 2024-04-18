@@ -160,3 +160,4 @@ prctl_install
 pyzmq_install
 czmq_pybindings_install
 zyre_pybindings_install
+echo ">>>>> installed all python packages"

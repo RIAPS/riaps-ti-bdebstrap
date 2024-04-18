@@ -23,7 +23,7 @@ After=sysrepod.service
 [Service]
 RemainAfterExit=true
 Type=oneshot
-ExecStart=/usr/sbin/netopeer2-server -v 1
+ExecStart=/usr/local/sbin/netopeer2-server -v 1
 
 [Install]
 WantedBy=multi-user.target

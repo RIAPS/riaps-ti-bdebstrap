@@ -74,6 +74,7 @@ mmdebstrap:
     - libcap-dev
     - libcurl4-gnutls-dev
     #- libcurl4-openssl-dev -- this package conflicts with libcurl4-gnutls-dev (needed for opendht)
+    - libev4
     - libffi-dev
     - libgnutls30
     - libgnutls28-dev
@@ -89,6 +90,8 @@ mmdebstrap:
     - libpcap0.8
     - libpcap-dev
     - libpcre2-dev
+    - libprotobuf32
+    - libprotobuf-c1
     - libreadline-dev
     - libssh-4
     - libssh-dev
@@ -121,6 +124,7 @@ mmdebstrap:
     - quota
     - software-properties-common
     - tmux
+    - tree
     - uuid-dev
     - wget
   mirrors:
@@ -213,13 +217,12 @@ mmdebstrap:
     - 'chroot "$1" echo "vm.oom-kill = 1" >> /etc/sysctl.conf'
     # MM TODO: for future, hold off for now - 'upload target/riaps/sysfiles/etc/fstab /etc/fstab'
       # Build key libraries
-    - 'upload target/riaps/install_files/external_build.sh /opt/riaps/external_build.sh'
-    - 'upload target/riaps/install_files/python_installs.sh /opt/riaps/python_installs.sh'
-    - 'chroot "$1" pip3 install Cython --break-system-packages --verbose'
-    - 'chroot "$1" chmod a+x /opt/riaps/external_build.sh'
-    - 'chroot "$1" /bin/bash -c "/opt/riaps/external_build.sh" >"$1/opt/riaps/external_build.log" 2>&1 || true'
-    - 'echo "Rootfs: $1"'
-    - 'cp $1/opt/riaps/external_build.log $1/../../../logs/external_build.log'
+    #- 'upload target/riaps/install_files/external_build.sh /opt/riaps/external_build.sh'
+    #- 'upload target/riaps/install_files/python_installs.sh /opt/riaps/python_installs.sh'
+    #- 'chroot "$1" pip3 install Cython --break-system-packages --verbose'
+    #- 'chroot "$1" chmod a+x /opt/riaps/external_build.sh'
+    #- 'chroot "$1" /bin/bash -c "/opt/riaps/external_build.sh" >"$1/opt/riaps/external_build.log" 2>&1 || true'
+    #- 'cp $1/opt/riaps/external_build.log $1/../../../logs/external_build.log'
       # Setup TSN libraries
     - 'chroot "$1" apt-get remove libcurl4-gnutls-dev -y'
     - 'chroot "$1" apt-get install libcurl4-openssl-dev -y'
@@ -227,11 +230,18 @@ mmdebstrap:
     - 'upload target/riaps/install_files/nw-configurator.c /opt/riaps/nw-configurator.c'
     - 'chroot "$1" chmod a+x /opt/riaps/tsn_lib_build.sh'
     - 'chroot "$1" /bin/bash -c "/opt/riaps/tsn_lib_build.sh" >"$1/opt/riaps/tsn_lib_build.log" 2>&1 || true'
-    - 'cp $1/opt/riaps/tsn_lib_build.log $1/../../../logs/tsn_lib_build.log' 
+    - 'cp $1/opt/riaps/tsn_lib_build.log $1/../../../logs/tsn_lib_build.log'
+      # Upload sysrepod.service and netopeer2-serverd.service (both left disabled)
+    - 'upload target/riaps/sysfiles/etc/systemd/system/sysrepod.service /etc/systemd/system/sysrepod.service'
+    - 'upload target/riaps/sysfiles/etc/systemd/system/netopeer2-serverd.service /etc/systemd/system/netopeer2-serverd.service'
+      # Update netopeer2 setup script to add Yang Models
+    - 'upload target/riaps/sysfiles/usr/local/share/netopeer2/scripts/setup.sh /usr/local/share/netopeer2/scripts/setup.sh'
+      # Not sure if this folder will be used yet, create anyway
+    - 'chroot "$1" mkdir -p /etc/sysrepo/data/notifications'
       # Install python
     - 'chroot "$1" chmod a+x /opt/riaps/python_installs.sh'
-    - 'chroot "$1" /bin/bash -c "/opt/riaps/python_installs.sh" >"$1/opt/riaps/python_installs.log" 2>&1 || true'
-    - 'cp $1/opt/riaps/python_installs.log $1/../../../logs/python_installs.log' 
+    #- 'chroot "$1" /bin/bash -c "/opt/riaps/python_installs.sh" >"$1/opt/riaps/python_installs.log" 2>&1 || true'
+    #- 'cp $1/opt/riaps/python_installs.log $1/../../../logs/python_installs.log' 
       # Set iptables to legacy version
     - 'chroot "$1" update-alternatives --set iptables /usr/sbin/iptables-legacy'
     - 'chroot "$1" update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy'
