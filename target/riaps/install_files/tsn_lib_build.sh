@@ -144,6 +144,7 @@ build_netopeer2() {
 
 #nw-configurator - depends on sysrepo
 build_nwconfigurator() {
+    cd /opt/riaps
     echo "Building nw-configurator in $PWD"
     ls -al
     gcc nw-configurator.c -o nw-configurator -lsysrepo
