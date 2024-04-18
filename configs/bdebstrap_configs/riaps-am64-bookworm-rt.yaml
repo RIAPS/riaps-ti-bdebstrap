@@ -218,12 +218,12 @@ mmdebstrap:
     - 'chroot "$1" echo "vm.oom-kill = 1" >> /etc/sysctl.conf'
     # MM TODO: for future, hold off for now - 'upload target/riaps/sysfiles/etc/fstab /etc/fstab'
       # Build key libraries
-    #- 'upload target/riaps/install_files/external_build.sh /opt/riaps/external_build.sh'
-    #- 'upload target/riaps/install_files/python_installs.sh /opt/riaps/python_installs.sh'
-    #- 'chroot "$1" pip3 install Cython --break-system-packages --verbose'
-    #- 'chroot "$1" chmod a+x /opt/riaps/external_build.sh'
-    #- 'chroot "$1" /bin/bash -c "/opt/riaps/external_build.sh" >"$1/opt/riaps/external_build.log" 2>&1 || true'
-    #- 'cp $1/opt/riaps/external_build.log $1/../../../logs/external_build.log'
+    - 'upload target/riaps/install_files/external_build.sh /opt/riaps/external_build.sh'
+    - 'upload target/riaps/install_files/python_installs.sh /opt/riaps/python_installs.sh'
+    - 'chroot "$1" pip3 install Cython --break-system-packages --verbose'
+    - 'chroot "$1" chmod a+x /opt/riaps/external_build.sh'
+    - 'chroot "$1" /bin/bash -c "/opt/riaps/external_build.sh" >"$1/opt/riaps/external_build.log" 2>&1 || true'
+    - 'cp $1/opt/riaps/external_build.log $1/../../../logs/external_build.log'
       # Setup TSN libraries
     - 'chroot "$1" apt-get remove libcurl4-gnutls-dev -y'
     - 'chroot "$1" apt-get install libcurl4-openssl-dev -y'
@@ -241,8 +241,8 @@ mmdebstrap:
     - 'chroot "$1" mkdir -p /etc/sysrepo/data/notifications'
       # Install python
     - 'chroot "$1" chmod a+x /opt/riaps/python_installs.sh'
-    #- 'chroot "$1" /bin/bash -c "/opt/riaps/python_installs.sh" >"$1/opt/riaps/python_installs.log" 2>&1 || true'
-    #- 'cp $1/opt/riaps/python_installs.log $1/../../../logs/python_installs.log' 
+    - 'chroot "$1" /bin/bash -c "/opt/riaps/python_installs.sh" >"$1/opt/riaps/python_installs.log" 2>&1 || true'
+    - 'cp $1/opt/riaps/python_installs.log $1/../../../logs/python_installs.log' 
       # Set iptables to legacy version
     - 'chroot "$1" update-alternatives --set iptables /usr/sbin/iptables-legacy'
     - 'chroot "$1" update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy'

@@ -156,7 +156,7 @@ build_nwconfigurator() {
 install_yang_models() {
     PREVIOUS_PWD=$PWD
     TMP=`mktemp -d`
-    git clone github.com/YangModels/yang.git $TMP/yangmodels
+    git clone https://github.com/YangModels/yang.git $TMP/yangmodels
     cd $TMP/yangmodels
     git checkout d3f6ca02ec9ce7c96b55066d209d08adbe851897
     install -o root -g root ./standard/ietf/RFC/iana-if-type.yang /usr/local/share/yang/modules/netopeer2/iana-if-type@2017-01-19.yang
