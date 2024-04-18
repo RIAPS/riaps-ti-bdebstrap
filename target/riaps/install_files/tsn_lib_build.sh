@@ -6,7 +6,7 @@ set -e
 build_tsn_libraries() {
     build_libyang
     build_libnetconf2
-    build_libredblack
+    #build_libredblack
     build_sysrepo
     build_netopeer2
     sudo ldconfig
@@ -63,6 +63,7 @@ build_libnetconf2() {
 
 #libredblack - searching/sorter library
 # Latest commit is the one indicated in the Yocto recipe
+# MM TODO: does not compile on arm64 - so not using it for now
 build_libredblack() {
     PREVIOUS_PWD=$PWD
     TMP=`mktemp -d`
