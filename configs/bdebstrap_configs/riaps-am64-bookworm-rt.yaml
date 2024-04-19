@@ -55,6 +55,7 @@ mmdebstrap:
     - autoconf
     - autogen
     - automake
+    - avahi
     - bison
     - byacc
     - can-utils
@@ -64,7 +65,7 @@ mmdebstrap:
     - flex
     - gpsd
     - git
-    # build: package not found - gpio
+    - gpiod
     - htop
     - ifupdown
     - iptables
@@ -79,7 +80,7 @@ mmdebstrap:
     - libffi-dev
     - libgnutls30
     - libgnutls28-dev
-    # build: package not found - libgpio-dev
+    - libgpiod-dev
     - libhttp-parser-dev
     - libiio-utils
     - libjsoncpp-dev
@@ -191,19 +192,18 @@ mmdebstrap:
     - 'chroot "$1" chmod +x /usr/bin/set_unique_hostname'
     - '$BDEBSTRAP_HOOKS/enable-units "$1" sethostname.service'
       # Setup RIAPS User
+    - 'chroot "$1" getent group gpio || groupadd gpio || true'
+    - 'chroot "$1" getent group dialout || groupadd dialout'
     - 'chroot "$1" useradd -m -c "RIAPS App Developer" riaps -s /bin/bash -d /home/riaps'
-      # MM TODO: still causing errors - put aside for now
-    #- 'chroot "$1" echo "riaps:riaps" | chpasswd'
+    - 'echo "riaps:riaps" | chroot "$1" chpasswd -e'
     - 'chroot "$1" chmod 0755 /home/riaps'
     - 'chroot "$1" usermod -aG sudo riaps'
     - 'chroot "$1" mkdir -p /home/riaps/riaps_apps'
     - 'chroot "$1" chown riaps:riaps /home/riaps/riaps_apps'
     - 'chroot "$1" mkdir -p /home/riaps/.ssh'
     - 'chroot "$1" chown riaps:riaps /home/riaps/.ssh'
-    #- 'chroot "$1" getent group gpio || groupadd gpio'
-    #- 'chroot "$1" usermod -aG gpio riaps'
-    #- 'chroot "$1" getent group dialout || groupadd dialout'
-    #- 'chroot "$1" usermod -aG dialout riaps'
+    - 'chroot "$1" usermod -aG gpio riaps || true'
+    - 'chroot "$1" usermod -aG dialout riaps'
       # Update date
     - 'chroot "$1" rdate -n -4 time.nist.gov'
       # Setup Watchdog timer
@@ -216,7 +216,10 @@ mmdebstrap:
     - 'chroot "$1" echo "kernel.panic_on_oops = 1" >> /etc/sysctl.conf'
     - 'chroot "$1" echo "kernel.panic = 5" >> /etc/sysctl.conf'
     - 'chroot "$1" echo "vm.oom-kill = 1" >> /etc/sysctl.conf'
-    # MM TODO: for future, hold off for now - 'upload target/riaps/sysfiles/etc/fstab /etc/fstab'
+    - 'upload target/riaps/sysfiles/etc/fstab /etc/fstab'
+      # Install chrony
+    - '$BDEBSTRAP_HOOKS/disable-units "$1" systemd-timesync.service'
+    - 'chroot "$1" apt-get install chrony -y'
       # Build key libraries
     - 'upload target/riaps/install_files/external_build.sh /opt/riaps/external_build.sh'
     - 'upload target/riaps/install_files/python_installs.sh /opt/riaps/python_installs.sh'
