@@ -236,7 +236,7 @@ mmdebstrap:
     - 'upload target/riaps/sysfiles/etc/systemd/system/sysrepod.service /etc/systemd/system/sysrepod.service'
     - 'upload target/riaps/sysfiles/etc/systemd/system/netopeer2-serverd.service /etc/systemd/system/netopeer2-serverd.service'
       # Update netopeer2 setup script to add Yang Models
-    - 'upload target/riaps/sysfiles/usr/local/share/netopeer2/scripts/setup.sh /usr/local/share/netopeer2/scripts/setup.sh'
+    - 'upload target/riaps/sysfiles/usr/local/share/netopeer2/setup.sh /usr/local/share/netopeer2/setup.sh'
       # Not sure if this folder will be used yet, create anyway
     - 'chroot "$1" mkdir -p /etc/sysrepo/data/notifications'
       # Install python
