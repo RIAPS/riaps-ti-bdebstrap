@@ -55,7 +55,7 @@ mmdebstrap:
     - autoconf
     - autogen
     - automake
-    - avahi
+    - avahi-utils
     - bison
     - byacc
     - can-utils
