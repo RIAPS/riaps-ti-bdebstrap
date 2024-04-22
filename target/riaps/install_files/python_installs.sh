@@ -139,7 +139,7 @@ pip3_3rd_party_installs(){
     # MM TODO: had to move pyyaml to 6.0.1 from 5.4.1 due to a build error
     pip3 install --break-system-packages 'paramiko==3.4.0' 'cryptography==3.4.8' --verbose
     # MM TODO: cryptography is already installed in /usr/lib/python3/dist-packages with v38.0.4, put v3.4.8 in /usr/local/lib
-    pip3 install --break-system-packages 'fabric2==3.2.2' --verbose
+    pip3 install --break-system-packages 'fabric2==3.2.2' 'numpy==1.26.4' --verbose
     echo ">>>>> installed pip3 packages"
 }
 
