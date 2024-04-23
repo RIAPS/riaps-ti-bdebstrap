@@ -6,6 +6,7 @@ set -e
 build_tsn_libraries() {
     build_libyang
     build_libnetconf2
+    # Note: This does not compile on arm64 (library is too old) - apt installed `libavl1` instead
     #build_libredblack
     build_sysrepo
     build_netopeer2
@@ -21,8 +22,8 @@ build_libyang() {
     TMP=`mktemp -d`
     git clone https://github.com/CESNET/libyang.git $TMP/libyang
     cd $TMP/libyang
-    # Newer version: git checkout v2.1.148
-    # Yocto recipe version: v2.1.77
+    # Newer version: git checkout v2.1.148 - not used
+    # Yocto recipe version: v2.1.77 - used
     git checkout a804113c9bbac3e36c53221be469c1ca5af5b435
     start=`date +%s`
     mkdir build 
@@ -44,8 +45,8 @@ build_libnetconf2() {
     TMP=`mktemp -d`
     git clone https://github.com/CESNET/libnetconf2.git $TMP/libnetconf2
     cd $TMP/libnetconf2
-    # Newer version: git checkout v3.0.8
-    # Yocto recipe version: v2.1.34
+    # Newer version: git checkout v3.0.8 - not used
+    # Yocto recipe version: v2.1.34 - used
     git checkout 91cd6d75722c65de5c005d908f6d645b48cee89b
     start=`date +%s`
     mkdir build 
@@ -63,7 +64,6 @@ build_libnetconf2() {
 
 #libredblack - searching/sorter library
 # Latest commit is the one indicated in the Yocto recipe
-# MM TODO: does not compile on arm64 - install libavl1 instead
 build_libredblack() {
     PREVIOUS_PWD=$PWD
     TMP=`mktemp -d`
@@ -88,22 +88,19 @@ build_sysrepo() {
     start=`date +%s`
     git clone https://github.com/sysrepo/sysrepo.git $TMP/sysrepo
     cd $TMP/sysrepo
-    # Newer version: git checkout v2.2.150
-    # Yocto recipe version: v2.2.71
+    # Newer version: git checkout v2.2.150 - not used
+    # Yocto recipe version: v2.2.71 - used
     git checkout b828f0ab4693c613cc66efd053a146e05854d5c8
     mkdir build 
     cd build
     cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..
     make -j2
     sudo make install
-    # MM TODO:  Things to watch out for in the build results - might need to add
-    #install -d ${D}${sysconfdir}/sysrepo/data/notifications
-    #install -d ${D}${sysconfdir}/sysrepo/yang
-    #install -o root -g root ${S}/modules/ietf-netconf-notifications.yang ${D}${sysconfdir}/sysrepo/yang/ietf-netconf-notifications@2012-02-06.yang
-    #install -o root -g root ${S}/modules/ietf-netconf-with-defaults.yang ${D}${sysconfdir}/sysrepo/yang/ietf-netconf-with-defaults@2011-06-01.yang
-    #install -o root -g root ${S}/modules/ietf-netconf.yang ${D}${sysconfdir}/sysrepo/yang/ietf-netconf@2011-06-01.yang
-    # MM TODO:  systemd file might be at yaml level as a move
-    #install -m 0644 ${WORKDIR}/sysrepod.service ${D}${systemd_system_unitdir}
+    mkdir -p /etc/sysrepo/data/notifications
+    mkdir -p /etc/sysrepo/yang
+    cp /usr/local/share/yang/modules/ietf-netconf-notifications.yang /etc/sysrepo/yang/ietf-netconf-notifications@2012-02-06.yang
+    cp /usr/local/share/yang/modules/ietf-netconf-with-defaults.yang /etc/sysrepo/yang/ietf-netconf-with-defaults@2011-06-01.yang
+    cp /usr/local/share/yang/modules/ietf-netconf.yang /etc/sysrepo/yang/ietf-netconf@2011-06-01.yang
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     end=`date +%s`
@@ -113,27 +110,27 @@ build_sysrepo() {
 }
 
 #netopeer2 - depends on libyang, libnetconf2, sysrepo, curl
-# MM TODO:  add patch - https://git.ti.com/cgit/arago-project/meta-arago/tree/meta-arago-extras/recipes-sysrepo/netopeer2-server/netopeer2-server/0001-Add-EST-Yang-Models.patch
+# Note: 0001-Add-EST-Yang-Models.patch from YOCTO is incorporated into the uploaded /usr/local/share/netopeer2/setup.sh file in config file:riaps-am64-bookworm-rt.yaml
 build_netopeer2() {
     PREVIOUS_PWD=$PWD
     TMP=`mktemp -d`
     git clone https://github.com/CESNET/netopeer2.git $TMP/netopeer2
     cd $TMP/netopeer2
-    # Newer version: git checkout v2.2.13
-    # Yocto recipe version: v2.1.59
+    # Newer version: git checkout v2.2.13 - not used
+    # Yocto recipe version: v2.1.59 - used
     git checkout b81788d9a81770313a0eb7f88d4224726b3d6e15
     start=`date +%s`
     cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local -DINSTALL_MODULES=OFF -DGENERATE_HOSTKEY=OFF -DMERGE_LISTEN_CONFIG=OFF . 
     make -j2
     sudo make install
-    # MM TODO:  Things to watch out for in the build results - might need to add
+    mkdir -p /etc/netopeer2
+    # netopeer2 install places scripts in /usr/local/share/netopeer2 folder, not /etc/netopeer2/scripts
+    #   The 'netopeer2-serverd.service' (uploaded in riaps-am64-bookworm-rt.yaml) has been modified to reflect this location
+    # Below is from the YOCTO recipe (for reference only, but intentionally not used)
     #install -d ${D}${sysconfdir}/netopeer2/scripts
     #install -o root -g root ${S}/scripts/setup.sh ${D}${sysconfdir}/netopeer2/scripts/setup.sh
     #install -o root -g root ${S}/scripts/merge_hostkey.sh ${D}${sysconfdir}/netopeer2/scripts/merge_hostkey.sh
     #install -o root -g root ${S}/scripts/merge_config.sh ${D}${sysconfdir}/netopeer2/scripts/merge_config.sh
-    #install -d ${D}${sysconfdir}/netopeer2
-    #  MM TODO:  systemd file might be at yaml level as a move - see what the /usr/local/lib/systemd/system/netopeer2-server.service is, compare to below
-    #install -m 0644 ${WORKDIR}/netopeer2-serverd.service ${D}${systemd_system_unitdir}
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     end=`date +%s`

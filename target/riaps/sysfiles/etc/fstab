@@ -1,1 +1,1 @@
-/dev/mmcblk1p2  /  ext4  rw,noatime,errors=remount-ro,usrquota,grpquota  0  1
+/dev/mmcblk1p2  /  ext4  rw,noatime,errors=remount-ro,usrjquota=quota.user,grpjquota=quota.group,jqfmt=vfsv0  0  1
