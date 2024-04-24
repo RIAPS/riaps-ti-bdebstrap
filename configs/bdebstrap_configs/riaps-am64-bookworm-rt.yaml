@@ -241,9 +241,9 @@ mmdebstrap:
       # Add Yang Models
     - 'chroot "$1" mkdir -p /etc/sysrepo/data/notifications'
     - 'chroot "$1" mkdir -p /etc/sysrepo/yang'
-    - 'chroot "$1" cp /usr/local/share/yang/modules/ietf-netconf-notifications.yang /etc/sysrepo/yang/ietf-netconf-notifications@2012-02-06.yang'
-    - 'chroot "$1" cp /usr/local/share/yang/modules/ietf-netconf-with-defaults.yang /etc/sysrepo/yang/ietf-netconf-with-defaults@2011-06-01.yang'
-    - 'chroot "$1" cp /usr/local/share/yang/modules/ietf-netconf.yang /etc/sysrepo/yang/ietf-netconf@2011-06-01.yang'
+    - 'chroot "$1" cp /usr/local/share/yang/modules/sysrepo/ietf-netconf-notifications.yang /etc/sysrepo/yang/ietf-netconf-notifications@2012-02-06.yang'
+    - 'chroot "$1" cp /usr/local/share/yang/modules/sysrepo/ietf-netconf-with-defaults.yang /etc/sysrepo/yang/ietf-netconf-with-defaults@2011-06-01.yang'
+    - 'chroot "$1" cp /usr/local/share/yang/modules/sysrepo/ietf-netconf.yang /etc/sysrepo/yang/ietf-netconf@2011-06-01.yang'
     - 'upload target/riaps/sysfiles/usr/local/share/netopeer2/setup.sh /usr/local/share/netopeer2/setup.sh'
     - 'chroot "$1" chmod a+x /usr/local/share/netopeer2/setup.sh'
       # Install python
