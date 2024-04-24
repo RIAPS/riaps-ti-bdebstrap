@@ -1,19 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-# Install spdlog python logger
-spdlog_python_install() {
-    PREVIOUS_PWD=$PWD
-    TMP=`mktemp -d`
-    git clone https://github.com/RIAPS/spdlog-python.git $TMP/spdlog-python
-    cd $TMP/spdlog-python
-    git clone -b v1.10.0 --depth 1 https://github.com/gabime/spdlog.git
-    sudo python3 setup.py install
-    cd $PREVIOUS_PWD
-    sudo rm -rf $TMP
-    echo ">>>>> installed spdlog"
-}
-
 # MM TODO:  the fix for Debian 11/12 is currently in the dev-imx8 branch
 apparmor_monkeys_install() {
     PREVIOUS_PWD=$PWD
@@ -21,7 +8,7 @@ apparmor_monkeys_install() {
     git clone https://github.com/RIAPS/apparmor_monkeys.git $TMP/apparmor_monkeys
     cd $TMP/apparmor_monkeys
     git checkout dev-imx8
-    sudo python3 setup.py install
+    sudo pip3 install --break-system-packages .
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> installed apparmor_monkeys"
@@ -38,7 +25,7 @@ pyzmq_install(){
     cd $TMP/pyzmq
     git checkout v25.1.2
     #ZMQ_DRAFT_API=1 sudo -E pip install --break-system-packages -v --no-binary pyzmq --pre pyzmq
-    ZMQ_DRAFT_API=1 sudo -E pip install --break-system-packages -v --no-binary pyzmq pyzmq
+    ZMQ_DRAFT_API=1 sudo -E pip3 install --break-system-packages -v --no-binary pyzmq pyzmq --verbose
    cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> installed pyzmq"
@@ -92,7 +79,7 @@ prctl_install() {
     git clone https://github.com/RIAPS/python-prctl.git $TMP/python-prctl
     cd $TMP/python-prctl/
     git checkout feature-ambient
-    sudo python3 setup.py install 
+    sudo pip3 install --break-system-packages . --verbose
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> installed prctl"

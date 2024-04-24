@@ -96,11 +96,12 @@ build_sysrepo() {
     cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..
     make -j2
     sudo make install
-    mkdir -p /etc/sysrepo/data/notifications
-    mkdir -p /etc/sysrepo/yang
-    cp /usr/local/share/yang/modules/ietf-netconf-notifications.yang /etc/sysrepo/yang/ietf-netconf-notifications@2012-02-06.yang
-    cp /usr/local/share/yang/modules/ietf-netconf-with-defaults.yang /etc/sysrepo/yang/ietf-netconf-with-defaults@2011-06-01.yang
-    cp /usr/local/share/yang/modules/ietf-netconf.yang /etc/sysrepo/yang/ietf-netconf@2011-06-01.yang
+    #MM TODO: trying in the yaml file after installation
+    #mkdir -p /etc/sysrepo/data/notifications
+    #mkdir -p /etc/sysrepo/yang
+    #cp /usr/local/share/yang/modules/ietf-netconf-notifications.yang /etc/sysrepo/yang/ietf-netconf-notifications@2012-02-06.yang
+    #cp /usr/local/share/yang/modules/ietf-netconf-with-defaults.yang /etc/sysrepo/yang/ietf-netconf-with-defaults@2011-06-01.yang
+    #cp /usr/local/share/yang/modules/ietf-netconf.yang /etc/sysrepo/yang/ietf-netconf@2011-06-01.yang
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     end=`date +%s`
