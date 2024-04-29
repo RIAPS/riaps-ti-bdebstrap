@@ -25,8 +25,9 @@ pyzmq_install(){
     cd $TMP/pyzmq
     git checkout v25.1.2
     #ZMQ_DRAFT_API=1 sudo -E pip install --break-system-packages -v --no-binary pyzmq --pre pyzmq
-    ZMQ_DRAFT_API=1 sudo -E pip3 install --break-system-packages -v --no-binary pyzmq pyzmq --verbose
-   cd $PREVIOUS_PWD
+    #ZMQ_DRAFT_API=1 sudo -E pip3 install --break-system-packages -v --no-binary pyzmq pyzmq --verbose
+    ZMQ_DRAFT_API=1 sudo -E pip3 install --break-system-packages -v --no-cache-dir .
+    cd $PREVIOUS_PWD
     sudo rm -rf $TMP
     echo ">>>>> installed pyzmq"
 }
