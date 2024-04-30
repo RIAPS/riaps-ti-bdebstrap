@@ -192,10 +192,9 @@ mmdebstrap:
     - 'chroot "$1" chmod +x /usr/bin/set_unique_hostname'
     - '$BDEBSTRAP_HOOKS/enable-units "$1" sethostname.service'
       # Setup RIAPS User
-    - 'upload target/riaps/sysfiles/usr/local/bin/setup_riaps_user.sh /usr/local/bin/setup_riaps_user.sh'
-    - 'chroot "$1" chmod +x /usr/local/bin/setup_riaps_user.sh'
-    - 'chroot "$1" /usr/local/bin/setup_riaps_user.sh'
-    - 'chroot "$1" rm /usr/local/bin/setup_riaps_user.sh'
+    - 'upload target/riaps/install_files/setup_riaps_user.sh /opt/riaps/setup_riaps_user.sh'
+    - 'chroot "$1" chmod a+x /opt/riaps/setup_riaps_user.sh'
+    - 'chroot "$1" /bin/bash -c "/opt/riaps/setup_riaps_user.sh" >"$1/opt/riaps/setup_riaps_user.log" 2>&1 || true'
     #- 'chroot "$1" getent group gpio || groupadd gpio || true'
     #- 'chroot "$1" getent group dialout || groupadd dialout'
     #- 'chroot "$1" useradd -m -c "RIAPS App Developer" riaps -s /bin/bash -d /home/riaps'
