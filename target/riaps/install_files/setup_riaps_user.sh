@@ -17,12 +17,14 @@ useradd -m -c "RIAPS App Developer" "$RIAPSUSER" -s /bin/bash -d /home/$RIAPSUSE
 # Set password for new user
 echo "$RIAPSUSER:$RIAPSPASSWD" | chpasswd
 
+echo ">>>>> setup $RIAPSUSER groups"
 getent group gpio || groupadd gpio
 getent group dialout || groupadd dialout
 usermod -aG sudo $RIAPSUSER
 usermod -aG dialout $RIAPSUSER
 usermod -aG gpio  $RIAPSUSER
 
+echo ">>>>> setup $RIAPSUSER directories"
 chmod 755 /home/$RIAPSUSER
 mkdir -p /home/$RIAPSUSER/riaps_apps
 chown $RIAPSUSER:$RIAPSUSER /home/$RIAPSUSER/riaps_apps
