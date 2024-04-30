@@ -60,8 +60,8 @@ mmdebstrap:
     - byacc
     - can-utils
     - cargo
-    # build: conflicts with systemd-timesyncd, time-daemon - chrony
     - cmake
+    - debconf-utils
     - flex
     - gpsd
     - git
