@@ -15,7 +15,7 @@ echo ">>>>> The user does not exist; setting user account up now"
 useradd -m -c "RIAPS App Developer" "$RIAPSUSER" -s /bin/bash -d /home/$RIAPSUSER
 
 # Set password for new user
-echo "$RIAPSUSER:$RIAPSPASSWD" | chroot "$1" chpasswd
+echo "$RIAPSUSER:$RIAPSPASSWD" | chpasswd
 
 getent group gpio || groupadd gpio
 getent group dialout || groupadd dialout
