@@ -195,7 +195,7 @@ mmdebstrap:
     - 'upload target/riaps/install_files/setup_riaps_user.sh /opt/riaps/setup_riaps_user.sh'
     - 'chroot "$1" chmod a+x /opt/riaps/setup_riaps_user.sh'
     - 'chroot "$1" /bin/bash -c "/opt/riaps/setup_riaps_user.sh" >"$1/opt/riaps/setup_riaps_user.log" 2>&1 || true'
- -  - 'cp $1/opt/riaps/setup_riaps_user.log $1/../../../logs/setup_riaps_user.log'
+    - 'cp $1/opt/riaps/setup_riaps_user.log $1/../../../logs/setup_riaps_user.log'
       # Update date
     - 'chroot "$1" rdate -n -4 time.nist.gov'
       # Setup Watchdog timer
