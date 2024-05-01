@@ -247,6 +247,11 @@ mmdebstrap:
     - 'chroot "$1" update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy'
       # Install RIAPS packages
     - 'chroot "$1" apt-get install riaps-pycom-am64x riaps-timesync-arm64'
+      # Set locale
+    - 'upload target/riaps/install_files/locale_setup.sh /opt/riaps/locale_setup.sh'
+    - 'chroot "$1" chmod a+x /opt/riaps/locale_setup.sh'
+    - 'chroot "$1" /bin/bash -c "/opt/riaps/locale_setup.sh" >"$1/opt/riaps/locale_setup.log" 2>&1 || true'
+    - 'cp $1/opt/riaps/locale_setup.log $1/../../../logs/locale_setup.log'
       # Install RIAPS built Linux kernel (MM TODO: still in work ...)
     #- 'upload target/riaps/install_files/kernel_update.sh /opt/riaps/kernel_update.sh'
     #- 'chroot "$1" chmod a+x /opt/riaps/kernel_update.sh'
