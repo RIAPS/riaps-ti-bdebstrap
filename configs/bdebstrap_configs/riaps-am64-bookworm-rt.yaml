@@ -254,11 +254,11 @@ mmdebstrap:
     - 'chroot "$1" chmod a+x /opt/riaps/locale_setup.sh'
     - 'chroot "$1" /bin/bash -c "/opt/riaps/locale_setup.sh" >"$1/opt/riaps/locale_setup.log" 2>&1 || true'
     - 'cp $1/opt/riaps/locale_setup.log $1/../../../logs/locale_setup.log'
-    #- 'chroot "$1" rm -R /opt/riaps' - uncomment this once the image looks good
-
-    # MM TODO: Things to add
-    # cpu freq setup (needed?)
-    # network setups
-    # remove packages used in external build, but not needed in image
-    # create riaps version file
+      # Remove packages and files used in image creation
+    - 'chroot "$1" apt-get remove libboost-dev libcap-dev libffi-dev libgnutls28-dev libncurses5-dev libncurses-dev -y'
+    - 'chroot "$1" apt-get remove libsystemd-dev libmsgpack-dev libpcap-dev remove uuid-dev liblz4-dev nettle-dev bison -y'
+    - 'chroot "$1" apt-get remove libcurl4-gnutls-dev libasio-dev libargon2-0-dev libhttp-parser-dev libjsoncpp-dev libzmq3-dev -y'
+    - 'chroot "$1" apt autoremove -y'
+    - 'chroot "$1" pip3 uninstall --break-system-packages cython -y'
+    - 'chroot "$1" rm -R /opt/riaps'
 

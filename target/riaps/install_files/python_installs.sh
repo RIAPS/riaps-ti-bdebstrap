@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-# MM TODO:  the fix for Debian 11/12 is currently in the dev-imx8 branch
+# For Debian 11/12 use the 'dev-imx8' branch
 apparmor_monkeys_install() {
     PREVIOUS_PWD=$PWD
     TMP=`mktemp -d`
@@ -14,18 +14,14 @@ apparmor_monkeys_install() {
     echo ">>>>> installed apparmor_monkeys"
 }
 
-# MM TODO: issue - checkout out v25.1.2 still installs pyzmq-26.0.0b2
 # NOTE: DEPRECATION: --no-binary currently disables reading from the cache of locally built wheels. 
-# In the future --no-binary will not influence the wheel cache. pip 23.1 will enforce this behaviour 
-# change. A possible replacement is to use the --no-cache-dir option.
+# Replaced it with recommended '--no-cache-dir' option.
 pyzmq_install(){
     PREVIOUS_PWD=$PWD
     TMP=`mktemp -d`
     git clone https://github.com/zeromq/pyzmq.git $TMP/pyzmq
     cd $TMP/pyzmq
     git checkout v25.1.2
-    #ZMQ_DRAFT_API=1 sudo -E pip install --break-system-packages -v --no-binary pyzmq --pre pyzmq
-    #ZMQ_DRAFT_API=1 sudo -E pip3 install --break-system-packages -v --no-binary pyzmq pyzmq --verbose
     ZMQ_DRAFT_API=1 sudo -E pip3 install --break-system-packages -v --no-cache-dir .
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
@@ -109,14 +105,10 @@ cython_install() {
 }
 
 # Install other required packages
-# base install should already have PyYAML==5.3.1
-# Utilizing distribution installed
-#     For 20.04: pyyaml = 5.3.1, psutil = 5.5.1 
-#     For 22.04: pyyaml = 5.4.1, cryptography = 3.4.8, netifaces = 0.11.0
 # Since python installs needing Cython typically calls for the latest version, do not specify a version for this package
 pip3_3rd_party_installs(){
     pip3 install --break-system-packages 'redis==5.0.1' 'hiredis==2.3.2' --verbose
-    # MM TODO: moved to pydevd v3.0.3
+    # Moved to pydevd v3.0.3
     pip3 install --break-system-packages 'pydevd==3.0.3' 'netifaces2==0.0.19' --verbose
     pip3 install --break-system-packages 'cgroups==0.1.0' 'cgroupspy==0.2.2' --verbose
     pip3 install --break-system-packages 'pyroute2==0.7.9' 'pyserial==3.5' --verbose
@@ -124,21 +116,13 @@ pip3_3rd_party_installs(){
     pip3 install --break-system-packages 'rpyc==5.3.1' 'parse==1.19.1' 'butter==0.13.1' --verbose
     pip3 install --break-system-packages 'gpiod==1.5.4' 'spdlog==2.0.6' --verbose
     pip3 install --break-system-packages 'psutil==5.9.0' 'pyyaml==6.0.1' --verbose
-    # MM TODO: had to move pyyaml to 6.0.1 from 5.4.1 due to a build error
+    # Had to move pyyaml to 6.0.1 from 5.4.1 due to a build error
     pip3 install --break-system-packages 'paramiko==3.4.0' 'cryptography==3.4.8' --verbose
-    # MM TODO: cryptography is already installed in /usr/lib/python3/dist-packages with v38.0.4, put v3.4.8 in /usr/local/lib
+    # NOTE: cryptography is already installed in /usr/lib/python3/dist-packages with v38.0.4, put v3.4.8 in /usr/local/lib
     pip3 install --break-system-packages 'fabric2==3.2.2' 'numpy==1.26.4' --verbose
     echo ">>>>> installed pip3 packages"
 }
 
-# Debian 12 requires non-debian managed pip packages to be installed in a virtual environment
-
-setup_venv() {
-    sudo apt-get install python3.11-venv
-    python3 -m venv riapsenv --system-site-packages
-    source riapsenv/bin/activate
-    echo ">>>>> riaps python virtual environment setup"
-}
 
 pycapnp_install
 apparmor_monkeys_install
