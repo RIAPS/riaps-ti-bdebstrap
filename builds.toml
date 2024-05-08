@@ -65,7 +65,7 @@ builds = [
     bsp_version = "09.02.00.009-rt"
     distro_variant = "am64-bookworm-rt"
 
-[riaps-am64-bookworm-09.02.01.008-rt]
+[riaps-am64-bookworm-09.02.01.009-rt]
     machine = "am64xx-evm"
-    bsp_version = "09.02.00.008-rt"
+    bsp_version = "09.02.00.009-rt"
     distro_variant = "riaps-am64-bookworm-rt"
