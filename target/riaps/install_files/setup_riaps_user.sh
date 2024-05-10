@@ -25,6 +25,7 @@ usermod -aG dialout $RIAPSUSER
 usermod -aG gpio  $RIAPSUSER
 
 echo ">>>>> setup $RIAPSUSER directories"
+ls -al /home/$RIAPSUSER
 chmod 755 /home/$RIAPSUSER
 mkdir -p /home/$RIAPSUSER/riaps_apps
 chown $RIAPSUSER:$RIAPSUSER /home/$RIAPSUSER/riaps_apps

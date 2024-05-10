@@ -120,3 +120,15 @@ sudo ./create-wic.sh am62-bookworm-09.01.00.008
 This command will generate a `tisdk-debian-bookworm-am62xx-evm.wic.xz` image at
  `<ti-bdebstrap>/build/am62-bookworm-09.01.00.008/`
 
+
+# RIAPS Additions
+
+RIAPS additions are located in the `develop` branch, with the `master` branch tracking with the TI repo. 
+The `version.sh` file should indicate the desired build version, such as `riaps-am64-bookworm-09.02.01.009-rt`.  
+
+When updating to a new TI version of the uboot_srcrev (seen in `config/bsp_sources.toml`), a new patch needs to be 
+created.  This can be done by cloning <https://git.ti.com/cgit/ti-u-boot/ti-u-boot>, checking out the indicated git 
+version tag.  From there, modify the "arch/arm/dts/k3-am642-evm.dts" and "arch/arm/dts/k3-am642-sk.dts" files to match 
+the current `patches/ti-u-boot/riaps-dts-bootargs-gpio.patch` file.  Once these files are updated with the desired 
+changes, within the ti-u-boot repo run ```git diff > riaps-dts-bootargs-gpio.patch``` to get a new patch for this 
+version.  Then move this patch to the `patches/ti-u-boot` folder.

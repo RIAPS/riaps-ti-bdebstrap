@@ -256,7 +256,7 @@ mmdebstrap:
     - 'cp $1/opt/riaps/locale_setup.log $1/../../../logs/locale_setup.log'
       # Remove packages and files used in image creation
     - 'chroot "$1" apt-get remove libboost-dev libcap-dev libffi-dev libgnutls28-dev libncurses5-dev libncurses-dev -y'
-    - 'chroot "$1" apt-get remove libsystemd-dev libmsgpack-dev libpcap-dev remove uuid-dev liblz4-dev nettle-dev bison -y'
+    - 'chroot "$1" apt-get remove libsystemd-dev libmsgpack-dev libpcap-dev uuid-dev liblz4-dev nettle-dev bison -y'
     - 'chroot "$1" apt-get remove libcurl4-gnutls-dev libasio-dev libargon2-0-dev libhttp-parser-dev libjsoncpp-dev libzmq3-dev -y'
     - 'chroot "$1" apt autoremove -y'
     - 'chroot "$1" pip3 uninstall --break-system-packages cython -y'
