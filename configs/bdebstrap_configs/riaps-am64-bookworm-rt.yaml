@@ -64,6 +64,7 @@ mmdebstrap:
     - cargo
     - cmake
     - debconf-utils
+    - ethtool
     - flex
     - gpsd
     - git

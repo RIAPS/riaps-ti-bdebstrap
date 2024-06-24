@@ -116,10 +116,11 @@ pip3_3rd_party_installs(){
     pip3 install --break-system-packages 'rpyc==5.3.1' 'parse==1.19.1' 'butter==0.13.1' --verbose
     pip3 install --break-system-packages 'gpiod==1.5.4' 'spdlog==2.0.6' --verbose
     pip3 install --break-system-packages 'psutil==5.9.0' 'pyyaml==6.0.1' --verbose
+    pip3 install --break-system-packages 'filelock==3.15.4' --verbose
     # Had to move pyyaml to 6.0.1 from 5.4.1 due to a build error
     pip3 install --break-system-packages 'paramiko==3.4.0' 'cryptography==3.4.8' --verbose
     # NOTE: cryptography is already installed in /usr/lib/python3/dist-packages with v38.0.4, put v3.4.8 in /usr/local/lib
-    pip3 install --break-system-packages 'fabric2==3.2.2' 'numpy==1.26.4' --verbose
+    pip3 install --break-system-packages 'fabric==3.2.2' 'numpy==1.26.4' --verbose
     echo ">>>>> installed pip3 packages"
 }
 
