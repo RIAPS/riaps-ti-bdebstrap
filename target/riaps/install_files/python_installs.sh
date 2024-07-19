@@ -7,7 +7,6 @@ apparmor_monkeys_install() {
     TMP=`mktemp -d`
     git clone https://github.com/RIAPS/apparmor_monkeys.git $TMP/apparmor_monkeys
     cd $TMP/apparmor_monkeys
-    git checkout dev-imx8
     sudo pip3 install --break-system-packages .
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP

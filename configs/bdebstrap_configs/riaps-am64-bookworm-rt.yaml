@@ -248,10 +248,8 @@ mmdebstrap:
       # Set iptables to legacy version
     - 'chroot "$1" update-alternatives --set iptables /usr/sbin/iptables-legacy'
     - 'chroot "$1" update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy'
-      # Install RIAPS packages
-      # MM TODO: for now the correct riaps-pycom for the am64x is located in the VU box account
+      # Install RIAPS packages - release image without RIAPS packages
     #- 'chroot "$1" apt-get install riaps-pycom-am64x riaps-timesync-arm64'
-    - 'chroot "$1" apt-get install riaps-timesync-arm64'
       # Set locale
     - 'upload target/riaps/install_files/locale_setup.sh /opt/riaps/locale_setup.sh'
     - 'chroot "$1" chmod a+x /opt/riaps/locale_setup.sh'
