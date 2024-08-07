@@ -160,7 +160,6 @@ mmdebstrap:
     - 'gpg --dearmor $1/tmp/riaps/Release.key'
     - 'mv $1/tmp/riaps/Release.key.gpg $1/usr/share/keyrings/zeromq-archive-keyring.gpg'
     - 'upload target/riaps/sysfiles/etc/apt/sources.list.d/zeromq.list /etc/apt/sources.list.d/zeromq.list'
-    - 'apt-get update'
   essential-hooks:
     # FIXME: Find a better workaround instead of sleep
     - 'sleep 10' # workaround for /proc resource busy unable to umount issue
