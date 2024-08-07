@@ -16,6 +16,7 @@ distro=$3
         --name ${topdir}/build/${build} \
         --target tisdk-${distro}-${machine}-rootfs \
         --hostname "${hostname}" -f &>>"${LOG_FILE}"
+        --include gnupg
 
     cd ${topdir}/build/
 

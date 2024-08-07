@@ -11,8 +11,8 @@ mmdebstrap:
     - main
     - contrib
     - non-free-firmware
-  early-packages:
-    - gnupg
+  #early-packages:
+  #  - gnupg
   packages:
     - build-essential
     - gpg
@@ -142,7 +142,7 @@ mmdebstrap:
     - 'mkdir -p $1/etc/apt/preferences.d/'
     - 'printf "Package: *\nPin: origin TexasInstruments.github.io\nPin-Priority: 1001" >> $1/etc/apt/preferences.d/ti-debpkgs'
       # Prioritize customized Kernel for RIAPS
-    - 'printf "Package: *\nPin: origin riaps.isis.vanderbilt.edu\nPin-Priority: 1050" >> $1/etc/apt/preferences.d/riaps-debpkgs'
+    - 'printf "Package: *\nPin: origin riaps.isis.vanderbilt.edu/aptrepo-debian\nPin-Priority: 1050" >> $1/etc/apt/preferences.d/riaps-debpkgs'
       # Setup Kernel post-install scripts
     - 'mkdir -p $1/etc/kernel/postinst.d/'
     - 'echo "PWD = $PWD"'
