@@ -11,8 +11,6 @@ mmdebstrap:
     - main
     - contrib
     - non-free-firmware
-  #early-packages:
-  #  - gnupg
   packages:
     - build-essential
     - gpg
@@ -142,7 +140,7 @@ mmdebstrap:
     - 'mkdir -p $1/etc/apt/preferences.d/'
     - 'printf "Package: *\nPin: origin TexasInstruments.github.io\nPin-Priority: 1001" >> $1/etc/apt/preferences.d/ti-debpkgs'
       # Prioritize customized Kernel for RIAPS
-    - 'printf "Package: *\nPin: origin riaps.isis.vanderbilt.edu/aptrepo-debian\nPin-Priority: 1050" >> $1/etc/apt/preferences.d/riaps-debpkgs'
+    - 'printf "Package: *\nPin: origin riaps.isis.vanderbilt.edu/aptrepo-am64-kernel\nPin-Priority: 1050" >> $1/etc/apt/preferences.d/riaps-kernel-debpkgs'
       # Setup Kernel post-install scripts
     - 'mkdir -p $1/etc/kernel/postinst.d/'
     - 'echo "PWD = $PWD"'
@@ -154,7 +152,7 @@ mmdebstrap:
     - 'wget https://riaps.isis.vanderbilt.edu/keys/riapspublic.key -P $1/tmp/riaps'
     - 'gpg --dearmor $1/tmp/riaps/riapspublic.key'
     - 'mv $1/tmp/riaps/riapspublic.key.gpg $1/usr/share/keyrings/riaps-archive-keyring.gpg'
-    - 'upload target/riaps/sysfiles/etc/apt/sources.list.d/riaps.list /etc/apt/sources.list.d/riaps.list'
+    - 'upload target/riaps/sysfiles/etc/apt/sources.list.d/riaps-am64-kernel.list /etc/apt/sources.list.d/riaps-am64-kernel.list'
       # Setup ZeroMQ Repo to get the draft APIs
     - 'wget https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/Debian_12/Release.key -P $1/tmp/riaps'
     - 'gpg --dearmor $1/tmp/riaps/Release.key'
@@ -184,6 +182,8 @@ mmdebstrap:
     - 'upload target/resize_rootfs/resize_rootfs.service /etc/systemd/system/resize_rootfs.service'
     - '$BDEBSTRAP_HOOKS/enable-units "$1" resize_rootfs'
       # Add RIAPS Specific Hooks
+      # Add RIAPS specific package repo
+    - 'upload target/riaps/sysfiles/etc/apt/sources.list.d/riaps.list /etc/apt/sources.list.d/riaps.list'
     - 'chroot "$1" mkdir -p /opt/riaps'
       # Setup place to pull out log files
     - 'mkdir -p /tmp-logs'
