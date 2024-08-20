@@ -1,0 +1,10 @@
+# This file describes various machine specific settings needed for the build
+
+[am64xx-evm]
+    # u-boot config
+    atf_target_board = "lite"
+    atf_make_args="K3_PM_SYSTEM_SUSPEND=1"
+    optee_platform = "k3-am64x"
+    optee_make_args = "."
+    uboot_r5_defconfig = "am64x_evm_r5_defconfig"
+    uboot_a53_defconfig = "am64x_evm_a53_defconfig"

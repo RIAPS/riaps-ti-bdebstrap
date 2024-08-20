@@ -2,70 +2,11 @@
 
 # Builds for GitHub Actions
 builds = [
-    "am62p-bookworm-09.02.01.009",
-    "am62p-bookworm-09.02.01.009-rt",
-    "am62-bookworm-09.02.01.009",
-    "am62-bookworm-09.02.01.009-rt",
-    "am62lp-bookworm-09.02.01.009",
-    "am62lp-bookworm-09.02.01.009-rt",
-    "am62sip-bookworm-09.02.01.009",
-    "am62sip-bookworm-09.02.01.009-rt",
-    "am64-bookworm-09.02.01.009",
-    "am64-bookworm-09.02.01.009-rt",
+    "bookworm-rt-am64xx-evm",
 ]
 
-# List of all valid builds
-[am62p-bookworm-09.02.01.009]
-    machine = "am62pxx-evm"
-    bsp_version = "09.02.00.009"
-    distro_variant = "am62p-bookworm"
-
-[am62p-bookworm-09.02.01.009-rt]
-    machine = "am62pxx-evm"
-    bsp_version = "09.02.00.009-rt"
-    distro_variant = "am62p-bookworm-rt"
-
-[am62-bookworm-09.02.01.009]
-    machine = "am62xx-evm"
-    bsp_version = "09.02.00.009"
-    distro_variant = "am62-bookworm"
-
-[am62-bookworm-09.02.01.009-rt]
-    machine = "am62xx-evm"
-    bsp_version = "09.02.00.009-rt"
-    distro_variant = "am62-bookworm-rt"
-
-[am62lp-bookworm-09.02.01.009]
-    machine = "am62xx-lp-evm"
-    bsp_version = "09.02.00.009"
-    distro_variant = "am62-bookworm"
-
-[am62lp-bookworm-09.02.01.009-rt]
-    machine = "am62xx-lp-evm"
-    bsp_version = "09.02.00.009-rt"
-    distro_variant = "am62-bookworm-rt"
-
-[am62sip-bookworm-09.02.01.009]
-    machine = "am62xxsip-evm"
-    bsp_version = "09.02.00.009"
-    distro_variant = "am62-bookworm"
-
-[am62sip-bookworm-09.02.01.009-rt]
-    machine = "am62xxsip-evm"
-    bsp_version = "09.02.00.009-rt"
-    distro_variant = "am62-bookworm-rt"
-
-[am64-bookworm-09.02.01.009]
+# List of all valid bookworm builds
+[bookworm-rt-am64xx-evm]
     machine = "am64xx-evm"
-    bsp_version = "09.02.00.009"
-    distro_variant = "am64-bookworm"
-
-[am64-bookworm-09.02.01.009-rt]
-    machine = "am64xx-evm"
-    bsp_version = "09.02.00.009-rt"
-    distro_variant = "am64-bookworm-rt"
-
-[riaps-am64-bookworm-09.02.01.009-rt]
-    machine = "am64xx-evm"
-    bsp_version = "09.02.00.009-rt"
-    distro_variant = "riaps-am64-bookworm-rt"
+    distro_codename = "bookworm"
+    rt_linux = "true"

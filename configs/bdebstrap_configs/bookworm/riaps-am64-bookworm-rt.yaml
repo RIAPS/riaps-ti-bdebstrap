@@ -7,6 +7,7 @@ mmdebstrap:
     - /usr/share/keyrings/debian-archive-keyring.gpg
   suite: bookworm
   variant: standard
+  hostname: riaps-am64xx-evm
   components:
     - main
     - contrib
