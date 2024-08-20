@@ -257,9 +257,9 @@ mmdebstrap:
     - 'chroot "$1" /bin/bash -c "/opt/riaps/locale_setup.sh" >"$1/opt/riaps/locale_setup.log" 2>&1 || true'
     - 'cp $1/opt/riaps/locale_setup.log $1/../../../logs/locale_setup.log'
       # Setup TI compiler for new kernel installs
-    - 'chroot "$1" wget https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-aarch64-none-linux-gnu.tar.xz
-    - 'chroot "$1" mv arm-gnu-toolchain-13.2.rel1-x86_64-aarch64-none-linux-gnu.tar.xz /opt/riaps/.'
-    - 'chroot "$1" tar -xf /opt/riaps/arm-gnu-toolchain-13.2.rel1-x86_64-aarch64-none-linux-gnu.tar.xz'
+    #- 'chroot "$1" wget https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-aarch64-none-linux-gnu.tar.xz
+    #- 'chroot "$1" mv arm-gnu-toolchain-13.2.rel1-x86_64-aarch64-none-linux-gnu.tar.xz /opt/riaps/.'
+    #- 'chroot "$1" tar -xf /opt/riaps/arm-gnu-toolchain-13.2.rel1-x86_64-aarch64-none-linux-gnu.tar.xz'
       # Remove packages and files used in image creation
     - 'chroot "$1" apt-get remove libboost-dev libcap-dev libffi-dev libgnutls28-dev libncurses5-dev libncurses-dev -y'
     - 'chroot "$1" apt-get remove libsystemd-dev libmsgpack-dev libpcap-dev uuid-dev liblz4-dev nettle-dev bison -y'
