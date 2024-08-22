@@ -3,10 +3,16 @@
 # Builds for GitHub Actions
 builds = [
     "bookworm-rt-am64xx-evm",
+    "bookworm-rt-am64xx-evm-riaps,"
 ]
 
 # List of all valid bookworm builds
 [bookworm-rt-am64xx-evm]
+    machine = "am64xx-evm"
+    distro_codename = "bookworm"
+    rt_linux = "true"
+
+[bookworm-rt-am64xx-evm-riaps]
     machine = "am64xx-evm"
     distro_codename = "bookworm"
     rt_linux = "true"

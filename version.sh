@@ -1,1 +1,1 @@
-export am64version="bookworm-rt-am64xx-evm"
+export am64version="bookworm-rt-am64xx-evm-riaps"
