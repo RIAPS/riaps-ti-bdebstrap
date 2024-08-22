@@ -13,6 +13,6 @@ builds = [
     rt_linux = "true"
 
 [bookworm-rt-am64xx-evm-riaps]
-    machine = "am64xx-evm"
+    machine = "am64xx-evm-riaps"
     distro_codename = "bookworm"
     rt_linux = "true"
