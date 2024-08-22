@@ -27,7 +27,7 @@ build_capnproto() {
     autoreconf -i c++
     cd c++ && ./configure --enable-shared
     cd ..
-    make -j2 -C c++
+    make -j4 -C c++
     sudo make -C c++ install
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
@@ -45,7 +45,7 @@ build_lmdb() {
     cd $TMP/lmdb
     git checkout LMDB_0.9.31
     start=`date +%s`
-    make -j2 -C ./libraries/liblmdb
+    make -j4 -C ./libraries/liblmdb
     sudo make -C ./libraries/liblmdb install
     end=`date +%s`
     cd $PREVIOUS_PWD
@@ -66,7 +66,7 @@ build_fmt() {
     cd build
     start=`date +%s`
     cmake -DBUILD_SHARED_LIBS=TRUE -DCMAKE_INSTALL_PREFIX=/usr/local ..
-    make -j2
+    make -j4
     sudo make install
     end=`date +%s`
     cd $PREVIOUS_PWD
@@ -85,8 +85,8 @@ build_nethogs() {
     cd $TMP/nethogs
     git checkout v0.8.6
     start=`date +%s`
-    make -j2 libnethogs
-    sudo make -j2 install_dev
+    make -j4 libnethogs
+    sudo make -j4 install_dev
     end=`date +%s`
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
@@ -105,7 +105,7 @@ build_czmq() {
     start=`date +%s`
     ./autogen.sh
     ./configure --enable-drafts=yes
-    make -j2
+    make -j4
     sudo make install
     end=`date +%s`
     cd $PREVIOUS_PWD
@@ -125,7 +125,7 @@ build_zyre() {
     start=`date +%s`
     ./autogen.sh
     ./configure --enable-drafts=yes
-    make -j2
+    make -j4
     sudo make install
     end=`date +%s`
     cd $PREVIOUS_PWD
@@ -145,7 +145,7 @@ build_opendht() {
     start=`date +%s`
     ./autogen.sh
     ./configure --prefix=/usr/local
-    make -j2
+    make -j4
     sudo make install
     end=`date +%s`
     cd $PREVIOUS_PWD
@@ -165,7 +165,7 @@ build_libsoc() {
     start=`date +%s`
     autoreconf -i
     ./configure --enable-board=beaglebone_black
-    make -j2
+    make -j4
     sudo make install
     end=`date +%s`
     cd $PREVIOUS_PWD
@@ -185,7 +185,7 @@ build_libply() {
     start=`date +%s`
     ./autogen.sh 
     ./configure 
-    make -j2
+    make -j4
     sudo make install
     end=`date +%s`
     cd $PREVIOUS_PWD

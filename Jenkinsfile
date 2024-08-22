@@ -4,6 +4,7 @@ pipeline {
     buildDiscarder logRotator(daysToKeepStr: '30', numToKeepStr: '10')
   }
   stages {
+
     stage('build') {
       steps {
         sh 'chmod +x package.sh'
@@ -13,7 +14,8 @@ pipeline {
   }
   post {
     success {
-      archiveArtifacts artifacts: 'build/riaps-am64-bookworm-*/*.wic.xz, logs/*.log', fingerprint: true
+      def am64version = sh(script: '. ./version.sh && echo $version', returnStdout: true).trim()
+      archiveArtifacts artifacts: 'build/${am64version}/*.wic.xz, logs/*.log', fingerprint: true
     }
   }
 }
