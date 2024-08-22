@@ -29,7 +29,7 @@ build_libyang() {
     mkdir build 
     cd build
     cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..
-    make -j4
+    make -j2
     sudo make install
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
@@ -52,7 +52,7 @@ build_libnetconf2() {
     mkdir build 
     cd build
     cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..
-    make -j4
+    make -j2
     sudo make install
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
@@ -71,7 +71,7 @@ build_libredblack() {
     cd $TMP/libredblack
     start=`date +%s`
     ./configure --without-rbgen
-    make -j4
+    make -j2
     sudo make install
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
@@ -94,7 +94,7 @@ build_sysrepo() {
     mkdir build 
     cd build
     cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..
-    make -j4
+    make -j2
     sudo make install
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
@@ -116,7 +116,7 @@ build_netopeer2() {
     git checkout b81788d9a81770313a0eb7f88d4224726b3d6e15
     start=`date +%s`
     cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local -DINSTALL_MODULES=OFF -DGENERATE_HOSTKEY=OFF -DMERGE_LISTEN_CONFIG=OFF . 
-    make -j4
+    make -j2
     sudo make install
     mkdir -p /etc/netopeer2
     # netopeer2 install places scripts in /usr/local/share/netopeer2 folder, not /etc/netopeer2/scripts
