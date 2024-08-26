@@ -228,7 +228,7 @@ mmdebstrap:
     - 'upload target/riaps/install_files/tsn_lib_build.sh /opt/riaps/tsn_lib_build.sh'
     - 'upload target/riaps/install_files/nw-configurator.c /opt/riaps/nw-configurator.c'
       # TODO: on the next kernel build, this line can be remove by adding "CONFIG_NET_SCH_TAPRIO=y" instead of =m
-    - 'upload target/riaps/sysfiles/etc/modules-load.d/sch_taprio.conf /etc/modules-load.d/sch_taprio.conf'
+    #- 'upload target/riaps/sysfiles/etc/modules-load.d/sch_taprio.conf /etc/modules-load.d/sch_taprio.conf'
     - 'chroot "$1" chmod a+x /opt/riaps/tsn_lib_build.sh'
     - 'chroot "$1" /bin/bash -c "/opt/riaps/tsn_lib_build.sh" >"$1/opt/riaps/tsn_lib_build.log" 2>&1 || true'
     - 'cp $1/opt/riaps/tsn_lib_build.log $1/../../../logs/tsn_lib_build.log'
