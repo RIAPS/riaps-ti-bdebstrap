@@ -60,7 +60,9 @@ function setup_build_tools() {
         else
             log "> Aarch64 Toolchain: available"
         fi
-        export PATH=${topdir}/tools/arm-gnu-toolchain-13.2.Rel1-${host_arch}-aarch64-none-linux-gnu/bin:$PATH
+        export CC_TOOL_LOC=${topdir}/tools/arm-gnu-toolchain-13.2.Rel1-${host_arch}-aarch64-none-linux-gnu/bin
+        export PATH=$CC_TOOL_LOC:$PATH
+        echo "PATH (with toolchain): ${PATH}"
     fi
 }
 

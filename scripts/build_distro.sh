@@ -14,10 +14,13 @@ machine=$3
         -c ${topdir}/configs/bdebstrap_configs/${distro_codename}/${distro}.yaml \
         --name ${topdir}/build/${distro} \
         --target tisdk-debian-${distro}-rootfs \
-        --hostname ${machine} \
         --include gnupg \
+        --env CROSS_COMPILE=$CC_TOOL_LOC/${cross_compile} \
         -f \
         &>>"${LOG_FILE}"
+
+        # Duplication (MM)
+        #--hostname ${machine} \
 
     cd ${topdir}/build/
 

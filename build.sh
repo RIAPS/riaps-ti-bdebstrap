@@ -49,8 +49,6 @@ do
 
     bsp_version=($(read_bsp_config ${distro_codename} bsp_version))
 
-    setup_build_tools
-
     export host_arch=`uname -m`
     export native_build=false
     export cross_compile=aarch64-none-linux-gnu-
@@ -58,6 +56,7 @@ do
         native_build=true
         cross_compile=
     fi
+    echo "cross_compile: ${cross_compile}"
 
     echo "machine: ${machine}"
     echo "bsp_version: ${bsp_version}"
@@ -65,6 +64,7 @@ do
     echo "host_arch: ${host_arch}"
 
     setup_log_file "${build}"
+    setup_build_tools
 
     validate_build ${machine} ${bsp_version} ${distro_codename}/${distro}.yaml
 

@@ -7,7 +7,7 @@ mmdebstrap:
     - /usr/share/keyrings/debian-archive-keyring.gpg
   suite: bookworm
   variant: standard
-  hostname: riaps-am64xx-evm
+  hostname: am64xx-evm-riaps
   components:
     - main
     - contrib
@@ -184,6 +184,7 @@ mmdebstrap:
     - '$BDEBSTRAP_HOOKS/enable-units "$1" resize_rootfs'
       # Add RIAPS Specific Hooks
       # Add RIAPS specific package repo
+    - 'chroot "$1" echo "CROSS_COMPILE: ${CROSS_COMPILE}"'
     - 'upload target/riaps/sysfiles/etc/apt/sources.list.d/riaps.list /etc/apt/sources.list.d/riaps.list'
     - 'chroot "$1" mkdir -p /opt/riaps'
       # Setup place to pull out log files
@@ -216,11 +217,12 @@ mmdebstrap:
     - '$BDEBSTRAP_HOOKS/disable-units "$1" systemd-timesync.service'
     - 'chroot "$1" apt-get install chrony -y'
       # Build key libraries
+    - 'upload target/riaps/install_files/build_tool_setup.sh /opt/riaps/build_tool_setup.sh'
     - 'upload target/riaps/install_files/external_build.sh /opt/riaps/external_build.sh'
     - 'upload target/riaps/install_files/python_installs.sh /opt/riaps/python_installs.sh'
     - 'chroot "$1" pip3 install Cython --break-system-packages --verbose'
     - 'chroot "$1" chmod a+x /opt/riaps/external_build.sh'
-    - 'chroot "$1" /bin/bash -c "/opt/riaps/external_build.sh" >"$1/opt/riaps/external_build.log" 2>&1 || true'
+    - 'chroot "$1" /bin/bash -c "source /opt/riaps/build_tool_setup.sh && /opt/riaps/external_build.sh" >"$1/opt/riaps/external_build.log" 2>&1 || true'
     - 'cp $1/opt/riaps/external_build.log $1/../../../logs/external_build.log'
       # Setup TSN libraries
     - 'chroot "$1" apt-get remove libcurl4-gnutls-dev -y'
@@ -230,7 +232,7 @@ mmdebstrap:
       # TODO: on the next kernel build, this line can be remove by adding "CONFIG_NET_SCH_TAPRIO=y" instead of =m
     #- 'upload target/riaps/sysfiles/etc/modules-load.d/sch_taprio.conf /etc/modules-load.d/sch_taprio.conf'
     - 'chroot "$1" chmod a+x /opt/riaps/tsn_lib_build.sh'
-    - 'chroot "$1" /bin/bash -c "/opt/riaps/tsn_lib_build.sh" >"$1/opt/riaps/tsn_lib_build.log" 2>&1 || true'
+    - 'chroot "$1" /bin/bash -c "source /opt/riaps/build_tool_setup.sh && /opt/riaps/tsn_lib_build.sh" >"$1/opt/riaps/tsn_lib_build.log" 2>&1 || true'
     - 'cp $1/opt/riaps/tsn_lib_build.log $1/../../../logs/tsn_lib_build.log'
       # Upload sysrepod.service and netopeer2-serverd.service (both left disabled)
     - 'upload target/riaps/sysfiles/etc/systemd/system/sysrepod.service /etc/systemd/system/sysrepod.service'
@@ -245,7 +247,7 @@ mmdebstrap:
     - 'chroot "$1" chmod a+x /usr/local/share/netopeer2/setup.sh'
       # Install python
     - 'chroot "$1" chmod a+x /opt/riaps/python_installs.sh'
-    - 'chroot "$1" /bin/bash -c "/opt/riaps/python_installs.sh" >"$1/opt/riaps/python_installs.log" 2>&1 || true'
+    - 'chroot "$1" /bin/bash -c "source /opt/riaps/build_tool_setup.sh && /opt/riaps/python_installs.sh" >"$1/opt/riaps/python_installs.log" 2>&1 || true'
     - 'cp $1/opt/riaps/python_installs.log $1/../../../logs/python_installs.log' 
       # Set iptables to legacy version
     - 'chroot "$1" update-alternatives --set iptables /usr/sbin/iptables-legacy'
