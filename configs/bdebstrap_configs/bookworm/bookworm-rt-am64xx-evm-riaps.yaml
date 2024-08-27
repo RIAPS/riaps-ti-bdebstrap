@@ -48,88 +48,88 @@ mmdebstrap:
     - linux-headers-6.1.83-k3-rt=09.02.00.010-rt-1
     - linux-libc-dev=09.02.00.010-rt-1
     # RIAPS Platform Packages
-    - apparmor
-    - apparmor-profiles
-    - apparmor-profiles-extra
-    - apparmor-utils
+    ##- apparmor
+    ##- apparmor-profiles
+    ##- apparmor-profiles-extra
+    ##- apparmor-utils
     - apt-transport-https
     - autoconf
     - autogen
     - automake
-    - avahi-utils
+    ##- avahi-utils
     - bison
     - byacc
-    - can-utils
-    - cargo
+    ##- can-utils
+    ##- cargo
     - cmake
     - debconf-utils
-    - ethtool
+    ##- ethtool
     - flex
-    - gpsd
+    ##- gpsd
     - git
-    - gpiod
+    ##- gpiod
     - htop
-    - ifupdown
-    - iptables
-    - libavl1
-    - libargon2-0-dev
-    - libasio-dev
-    - libboost-dev
-    - libcap-dev
-    - libcurl4-gnutls-dev
+    ##- ifupdown
+    ##- iptables
+    ##- libavl1
+    ##- libargon2-0-dev
+    ##- libasio-dev
+    ##- libboost-dev
+    ##- libcap-dev
+    ##- libcurl4-gnutls-dev
     #- libcurl4-openssl-dev -- this package conflicts with libcurl4-gnutls-dev (needed for opendht)
-    - libev4
-    - libffi-dev
-    - libgnutls30
-    - libgnutls28-dev
-    - libgpiod-dev
-    - libhttp-parser-dev
-    - libiio-utils
-    - libjsoncpp-dev
-    - liblz4-1
-    - liblz4-dev
-    - libmsgpackc2
-    - libmsgpack-dev
-    - libncurses5-dev
-    - libpcap0.8
-    - libpcap-dev
-    - libpcre2-dev
-    - libprotobuf32
-    - libprotobuf-c1
-    - libreadline-dev
-    - libssh-4
-    - libssh-dev
+    ##- libev4
+    ##- libffi-dev
+    ##- libgnutls30
+    ##- libgnutls28-dev
+    ##- libgpiod-dev
+    ##- libhttp-parser-dev
+    ##- libiio-utils
+    ##- libjsoncpp-dev
+    ##- liblz4-1
+    ##- liblz4-dev
+    ##- libmsgpackc2
+    ##- libmsgpack-dev
+    ##- libncurses5-dev
+    ##- libpcap0.8
+    ##- libpcap-dev
+    ##- libpcre2-dev
+    ##- libprotobuf32
+    ##- libprotobuf-c1
+    ##- libreadline-dev
+    ##- libssh-4
+    ##- libssh-dev
     - libssl3
     - libssl-dev
-    - libsystemd-dev
-    - libtool
-    - libtool-bin
-    - libuuid1
-    - linuxptp
-    - libzmq5
-    - libzmq3-dev
+    ##- libsystemd-dev
+    ##- libtool
+    ##- libtool-bin
+    ##- libuuid1
+    ##- linuxptp
+    ##- libzmq5
+    ##- libzmq3-dev
     - make
     - nano
-    - nettle-dev
+    ##- nettle-dev
     - openssl
     - pkg-config
-    - pps-tools
-    - python-is-python3
-    - python3
-    - python3-dev
-    - python3-pip
-    - python3-pkgconfig
-    - python3-setuptools
-    - python3-smbus
-    - python3.11-venv
+    ##- pps-tools
+    ##- python-is-python3
+    ##- python3
+    ##- python3-dev
+    ##- python3-pip
+    ##- python3-pkgconfig
+    ##- python3-setuptools
+    ##- python3-smbus
+    ##- python3.11-venv
     - rdate
     - rsyslog
-    - rustc
-    - quota
+    ##- rustc
+    ##- quota
     - software-properties-common
-    - tmux
-    - tree
-    - uuid-dev
+    ##- tmux
+    ##- tree
+    ##- uuid-dev
     - wget
   mirrors:
     - http://deb.debian.org/debian
@@ -232,43 +232,43 @@ mmdebstrap:
       # TODO: on the next kernel build, this line can be remove by adding "CONFIG_NET_SCH_TAPRIO=y" instead of =m
     #- 'upload target/riaps/sysfiles/etc/modules-load.d/sch_taprio.conf /etc/modules-load.d/sch_taprio.conf'
     - 'chroot "$1" chmod a+x /opt/riaps/tsn_lib_build.sh'
-    - 'chroot "$1" /bin/bash -c "source /opt/riaps/build_tool_setup.sh && /opt/riaps/tsn_lib_build.sh" >"$1/opt/riaps/tsn_lib_build.log" 2>&1 || true'
-    - 'cp $1/opt/riaps/tsn_lib_build.log $1/../../../logs/tsn_lib_build.log'
+    ##- 'chroot "$1" /bin/bash -c "source /opt/riaps/build_tool_setup.sh && /opt/riaps/tsn_lib_build.sh" >"$1/opt/riaps/tsn_lib_build.log" 2>&1 || true'
+    ##- 'cp $1/opt/riaps/tsn_lib_build.log $1/../../../logs/tsn_lib_build.log'
       # Upload sysrepod.service and netopeer2-serverd.service (both left disabled)
-    - 'upload target/riaps/sysfiles/etc/systemd/system/sysrepod.service /etc/systemd/system/sysrepod.service'
-    - 'upload target/riaps/sysfiles/etc/systemd/system/netopeer2-serverd.service /etc/systemd/system/netopeer2-serverd.service'
+    ##- 'upload target/riaps/sysfiles/etc/systemd/system/sysrepod.service /etc/systemd/system/sysrepod.service'
+    ##- 'upload target/riaps/sysfiles/etc/systemd/system/netopeer2-serverd.service /etc/systemd/system/netopeer2-serverd.service'
       # Add Yang Models
-    - 'chroot "$1" mkdir -p /etc/sysrepo/data/notifications'
-    - 'chroot "$1" mkdir -p /etc/sysrepo/yang'
-    - 'chroot "$1" cp /usr/local/share/yang/modules/sysrepo/ietf-netconf-notifications.yang /etc/sysrepo/yang/ietf-netconf-notifications@2012-02-06.yang'
-    - 'chroot "$1" cp /usr/local/share/yang/modules/sysrepo/ietf-netconf-with-defaults.yang /etc/sysrepo/yang/ietf-netconf-with-defaults@2011-06-01.yang'
-    - 'chroot "$1" cp /usr/local/share/yang/modules/sysrepo/ietf-netconf.yang /etc/sysrepo/yang/ietf-netconf@2011-06-01.yang'
-    - 'upload target/riaps/sysfiles/usr/local/share/netopeer2/setup.sh /usr/local/share/netopeer2/setup.sh'
-    - 'chroot "$1" chmod a+x /usr/local/share/netopeer2/setup.sh'
+    ##- 'chroot "$1" mkdir -p /etc/sysrepo/data/notifications'
+    ##- 'chroot "$1" mkdir -p /etc/sysrepo/yang'
+    ##- 'chroot "$1" cp /usr/local/share/yang/modules/sysrepo/ietf-netconf-notifications.yang /etc/sysrepo/yang/ietf-netconf-notifications@2012-02-06.yang'
+    ##- 'chroot "$1" cp /usr/local/share/yang/modules/sysrepo/ietf-netconf-with-defaults.yang /etc/sysrepo/yang/ietf-netconf-with-defaults@2011-06-01.yang'
+    ##- 'chroot "$1" cp /usr/local/share/yang/modules/sysrepo/ietf-netconf.yang /etc/sysrepo/yang/ietf-netconf@2011-06-01.yang'
+    ##- 'upload target/riaps/sysfiles/usr/local/share/netopeer2/setup.sh /usr/local/share/netopeer2/setup.sh'
+    ##- 'chroot "$1" chmod a+x /usr/local/share/netopeer2/setup.sh'
       # Install python
     - 'chroot "$1" chmod a+x /opt/riaps/python_installs.sh'
-    - 'chroot "$1" /bin/bash -c "source /opt/riaps/build_tool_setup.sh && /opt/riaps/python_installs.sh" >"$1/opt/riaps/python_installs.log" 2>&1 || true'
-    - 'cp $1/opt/riaps/python_installs.log $1/../../../logs/python_installs.log' 
+    ##- 'chroot "$1" /bin/bash -c "source /opt/riaps/build_tool_setup.sh && /opt/riaps/python_installs.sh" >"$1/opt/riaps/python_installs.log" 2>&1 || true'
+    ##- 'cp $1/opt/riaps/python_installs.log $1/../../../logs/python_installs.log' 
       # Set iptables to legacy version
-    - 'chroot "$1" update-alternatives --set iptables /usr/sbin/iptables-legacy'
-    - 'chroot "$1" update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy'
+    ##- 'chroot "$1" update-alternatives --set iptables /usr/sbin/iptables-legacy'
+    ##- 'chroot "$1" update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy'
       # Install RIAPS packages - release image without RIAPS packages
     #- 'chroot "$1" apt-get install riaps-pycom-am64x riaps-timesync-arm64'
       # Set locale
-    - 'upload target/riaps/install_files/locale_setup.sh /opt/riaps/locale_setup.sh'
-    - 'chroot "$1" chmod a+x /opt/riaps/locale_setup.sh'
-    - 'chroot "$1" /bin/bash -c "/opt/riaps/locale_setup.sh" >"$1/opt/riaps/locale_setup.log" 2>&1 || true'
-    - 'cp $1/opt/riaps/locale_setup.log $1/../../../logs/locale_setup.log'
+    ##- 'upload target/riaps/install_files/locale_setup.sh /opt/riaps/locale_setup.sh'
+    ##- 'chroot "$1" chmod a+x /opt/riaps/locale_setup.sh'
+    ##- 'chroot "$1" /bin/bash -c "/opt/riaps/locale_setup.sh" >"$1/opt/riaps/locale_setup.log" 2>&1 || true'
+    ##- 'cp $1/opt/riaps/locale_setup.log $1/../../../logs/locale_setup.log'
       # Setup TI compiler for new kernel installs
     #- 'chroot "$1" wget https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-aarch64-none-linux-gnu.tar.xz
     #- 'chroot "$1" mv arm-gnu-toolchain-13.2.rel1-x86_64-aarch64-none-linux-gnu.tar.xz /opt/riaps/.'
     #- 'chroot "$1" tar -xf /opt/riaps/arm-gnu-toolchain-13.2.rel1-x86_64-aarch64-none-linux-gnu.tar.xz'
       # Remove packages and files used in image creation
-    - 'chroot "$1" apt-get remove libboost-dev libcap-dev libffi-dev libgnutls28-dev libncurses5-dev libncurses-dev -y'
-    - 'chroot "$1" apt-get remove libsystemd-dev libmsgpack-dev libpcap-dev uuid-dev liblz4-dev nettle-dev bison -y'
-    - 'chroot "$1" apt-get remove libcurl4-gnutls-dev libasio-dev libargon2-0-dev libhttp-parser-dev libjsoncpp-dev libzmq3-dev -y'
-    - 'chroot "$1" apt autoremove -y'
-    - 'chroot "$1" pip3 uninstall --break-system-packages cython -y'
-    - 'chroot "$1" rm /opt/riaps/*.sh'
-    - 'chroot "$1" rm /opt/riaps/*.log'
+    ##- 'chroot "$1" apt-get remove libboost-dev libcap-dev libffi-dev libgnutls28-dev libncurses5-dev libncurses-dev -y'
+    ##- 'chroot "$1" apt-get remove libsystemd-dev libmsgpack-dev libpcap-dev uuid-dev liblz4-dev nettle-dev bison -y'
+    ##- 'chroot "$1" apt-get remove libcurl4-gnutls-dev libasio-dev libargon2-0-dev libhttp-parser-dev libjsoncpp-dev libzmq3-dev -y'
+    ##- 'chroot "$1" apt autoremove -y'
+    ##- 'chroot "$1" pip3 uninstall --break-system-packages cython -y'
+    ##- 'chroot "$1" rm /opt/riaps/*.sh'
+    ##- 'chroot "$1" rm /opt/riaps/*.log'
 

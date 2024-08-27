@@ -15,10 +15,11 @@ pipeline {
   post {
     success {
       script {
-        env.AM64VERSION = sh(script: '. ./version.sh && echo $version', returnStdout: true).trim()
+        env.AM64VERSION = sh(script: '. ./version.sh && echo $am64version', returnStdout: true).trim()
         echo "Pipeline succeeded with version ${env.AM64VERSION}"
+        def artifactsItems = "build/${env.AM64VERSION}/*.wic.xz, logs/*.log"
+        archiveArtifacts artifacts: artifactsItems, fingerprint: true
       }
-      archiveArtifacts artifacts: 'build/${env.AM64VERSION}/*.wic.xz, logs/*.log', fingerprint: true
     }
   }
 }

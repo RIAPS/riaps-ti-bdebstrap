@@ -63,14 +63,16 @@ do
     echo "distro: ${distro}"
     echo "host_arch: ${host_arch}"
 
-    setup_log_file "${build}"
     setup_build_tools
 
+    setup_log_file "${build}"
+
+    echo "Validate build ..."
     validate_build ${machine} ${bsp_version} ${distro_codename}/${distro}.yaml
 
     generate_rootfs ${distro} ${distro_codename} ${machine}
-    build_bsp ${distro} ${machine} ${bsp_version}
-    package_and_clean ${distro}
+    #build_bsp ${distro} ${machine} ${bsp_version}
+    #package_and_clean ${distro}
 
 done
 
