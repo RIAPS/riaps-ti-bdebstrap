@@ -62,7 +62,7 @@ function setup_build_tools() {
         fi
         export CC_TOOL_LOC=${topdir}/tools/arm-gnu-toolchain-13.2.Rel1-${host_arch}-aarch64-none-linux-gnu/bin
         export PATH=$CC_TOOL_LOC:$PATH
-        echo "PATH (with toolchain): ${PATH}"
+        echo "> PATH (with toolchain): ${PATH}"
     fi
 }
 

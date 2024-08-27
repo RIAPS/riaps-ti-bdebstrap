@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source version.sh
-echo "Build step ..."
+echo "> Build step ..."
 sudo ./build.sh $am64version
 #echo "Create SD Image ..."
 #sudo ./create-wic.sh $am64version

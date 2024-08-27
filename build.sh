@@ -33,7 +33,7 @@ mkdir -p ${topdir}/build
 for build in ${builds}
 do
 
-    echo "${build}"
+    echo "> ${build}"
 
     validate_section "Build" ${build} "${topdir}/builds.toml"
 
@@ -56,18 +56,18 @@ do
         native_build=true
         cross_compile=
     fi
-    echo "cross_compile: ${cross_compile}"
+    echo "> cross_compile: ${cross_compile}"
 
-    echo "machine: ${machine}"
-    echo "bsp_version: ${bsp_version}"
-    echo "distro: ${distro}"
-    echo "host_arch: ${host_arch}"
+    echo "> machine: ${machine}"
+    echo "> bsp_version: ${bsp_version}"
+    echo "> distro: ${distro}"
+    echo "> host_arch: ${host_arch}"
 
     setup_build_tools
 
     setup_log_file "${build}"
 
-    echo "Validate build ..."
+    echo "> Validate build ..."
     validate_build ${machine} ${bsp_version} ${distro_codename}/${distro}.yaml
 
     generate_rootfs ${distro} ${distro_codename} ${machine}
