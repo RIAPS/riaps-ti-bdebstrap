@@ -221,7 +221,7 @@ mmdebstrap:
     - 'chroot "$1" gcc --version'
     - 'chroot "$1" make --version'
     - 'chroot "$1" aarch64-linux-gnu-gcc --version'
-    - 'chroot "$1" aarch64-none-linux-gnu--gcc --version'
+    - 'chroot "$1" aarch64-none-linux-gnu-gcc --version'
     - 'chroot "$1" git clone https://github.com/capnproto/capnproto /opt/riaps/capnproto'
     - 'chroot "$1" cd /opt/riaps/capnproto'
     - 'chroot "$1" cd /opt/riaps/capnproto && git checkout v1.0.1.1'
