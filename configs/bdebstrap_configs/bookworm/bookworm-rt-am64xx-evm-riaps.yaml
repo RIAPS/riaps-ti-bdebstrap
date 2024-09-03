@@ -60,7 +60,7 @@ mmdebstrap:
     - bison
     - byacc
     ##- can-utils
-    - cargo
+    ##- cargo
     - cmake
     - debconf-utils
     ##- ethtool
@@ -71,40 +71,40 @@ mmdebstrap:
     - htop
     ##- ifupdown
     ##- iptables
-    - libavl1
-    - libargon2-0-dev
-    - libasio-dev
-    - libboost-dev
+    ##- libavl1
+    ##- libargon2-0-dev
+    ##- libasio-dev
+    ##- libboost-dev
     - libcap-dev
-    - libcurl4-gnutls-dev
+    ##- libcurl4-gnutls-dev
     #- libcurl4-openssl-dev -- this package conflicts with libcurl4-gnutls-dev (needed for opendht)
-    - libev4
-    - libffi-dev
-    - libgnutls30
-    - libgnutls28-dev
+    ##- libev4
+    ##- libffi-dev
+    ##- libgnutls30
+    ##- libgnutls28-dev
     ##- libgpiod-dev
     - libhttp-parser-dev
-    - libiio-utils
-    - libjsoncpp-dev
-    - liblz4-1
-    - liblz4-dev
+    ##- libiio-utils
+    ##- libjsoncpp-dev
+    ##- liblz4-1
+    ##- liblz4-dev
     ##- libmsgpackc2
     ##- libmsgpack-dev
-    - libncurses5-dev
+    ##- libncurses5-dev
     - libpcap0.8
     - libpcap-dev
-    - libpcre2-dev
-    - libprotobuf32
-    - libprotobuf-c1
-    - libreadline-dev
-    - libssh-4
-    - libssh-dev
-    - libssl3
-    - libssl-dev
-    - libsystemd-dev
+    ##- libpcre2-dev
+    ##- libprotobuf32
+    ##- libprotobuf-c1
+    ##- libreadline-dev
+    ##- libssh-4
+    ##- libssh-dev
+    ##- libssl3
+    ##- libssl-dev
+    ##- libsystemd-dev
     - libtool
     - libtool-bin
-    - libuuid1
+    ##- libuuid1
     ##- linuxptp
     ##- libzmq5
     ##- libzmq3-dev
@@ -217,17 +217,19 @@ mmdebstrap:
     ##- '$BDEBSTRAP_HOOKS/disable-units "$1" systemd-timesync.service'
     ##- 'chroot "$1" apt-get install chrony -y'
       # Build key libraries
+    - 'chroot "$1" echo "Path: $PATH"'
     - 'chroot "$1" dpkg -s linux-libc-dev:arm64'
     - 'chroot "$1" gcc --version'
     - 'chroot "$1" make --version'
-    - 'chroot "$1" aarch64-linux-gnu-gcc --version'
-    - 'chroot "$1" aarch64-none-linux-gnu-gcc --version'
+    #- 'chroot "$1" aarch64-linux-gnu-gcc --version'
+    #- 'chroot "$1" aarch64-none-linux-gnu-gcc --version'
     - 'chroot "$1" git clone https://github.com/capnproto/capnproto /opt/riaps/capnproto'
-    - 'chroot "$1" cd /opt/riaps/capnproto'
+    #- 'chroot "$1" cd /opt/riaps/capnproto'
     - 'chroot "$1" cd /opt/riaps/capnproto && git checkout v1.0.1.1'
     - 'chroot "$1" cd /opt/riaps/capnproto && autoreconf -i c++'
     - 'chroot "$1" cd /opt/riaps/capnproto/c++ && ./configure --enable-shared'
-    - 'chroot "$1" cd /opt/riaps/capnproto/c++ && CXX=aarch64-none-linux-gnu-g++ CC=aarch64-none-linux-gnu-gcc ./configure --enable-shared --host=aarch64-linux-gnu'
+    #- 'chroot "$1" cd /opt/riaps/capnproto/c++ && CXX=aarch64-none-linux-gnu-g++ CC=aarch64-none-linux-gnu-gcc ./configure --enable-shared --host=aarch64-linux-gnu'
+    #- 'chroot "$1" cd /opt/riaps/capnproto/c++ && CXX=aarch64-none-linux-gnu-g++ CC=aarch64-none-linux-gnu-gcc ./configure --enable-shared --host=aarch64-linux-gnu'
 
 
     ###- 'upload target/riaps/install_files/build_tool_setup.sh /opt/riaps/build_tool_setup.sh'
