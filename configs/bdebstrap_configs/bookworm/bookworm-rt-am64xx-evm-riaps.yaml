@@ -220,6 +220,7 @@ mmdebstrap:
     - 'chroot "$1" echo "Path: $PATH"'
     - 'chroot "$1" dpkg -s linux-libc-dev:arm64'
     - 'chroot "$1" gcc --version'
+    - 'chroot "$1" g++ --version'
     - 'chroot "$1" make --version'
     #- 'chroot "$1" aarch64-linux-gnu-gcc --version'
     #- 'chroot "$1" aarch64-none-linux-gnu-gcc --version'
@@ -227,7 +228,7 @@ mmdebstrap:
     #- 'chroot "$1" cd /opt/riaps/capnproto'
     - 'chroot "$1" git -C /opt/riaps/capnproto checkout v1.0.1.1'
     - 'chroot "$1" autoreconf -i /opt/riaps/capnproto/c++'
-    - 'chroot "$1" /bin/bash -c "cd /opt/riaps/capnproto/c++ && ./configure --enable-shared"'
+    - 'chroot "$1" /bin/bash -c "cd /opt/riaps/capnproto/c++ && ./configure --host=aarch64-linux-gnu --enable-shared"'
     #- 'chroot "$1" cd /opt/riaps/capnproto/c++ && CXX=aarch64-none-linux-gnu-g++ CC=aarch64-none-linux-gnu-gcc ./configure --enable-shared --host=aarch64-linux-gnu'
     #- 'chroot "$1" cd /opt/riaps/capnproto/c++ && CXX=aarch64-none-linux-gnu-g++ CC=aarch64-none-linux-gnu-gcc ./configure --enable-shared --host=aarch64-linux-gnu'
 
