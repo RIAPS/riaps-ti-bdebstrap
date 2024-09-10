@@ -2,28 +2,6 @@
 
 Scripts to build custom bootstrap images using bdebstrap for TI platforms
 
-## Directory Structure
-
-```bash
-├── build.sh
-├── builds.toml
-├── configs
-│   ├── bdebstrap_configs
-│   │   ├── bookworm-default.yaml
-│   │   └── bullseye-default.yaml
-│   ├── bsp_sources.toml
-│   └── machines.toml
-├── LICENSE
-├── README.md
-├── scripts
-│   ├── build_bsp.sh
-│   ├── build_distro.sh
-│   ├── common.sh
-│   └── setup.sh
-├── target
-│   └── files for target configs
-```
-
 ## Prerequisites
 
 Host Setup - Ubuntu 22.04 (Recommended)
@@ -44,6 +22,7 @@ sudo apt install -y \
         python3-yaml python3-jsonschema python3-cryptography
 sudo apt install --fix-broken
 sudo pip3 install toml-cli
+sudo pip3 install yamllint
 ```
 
 ## Usage
@@ -53,13 +32,12 @@ particular machine, BSP version and distribution variant. The `builds.toml`
 file contains a list of builds, with corresponding machine, BSP version and
 distribution variant specifications.
 
-Further, each machine is defined in `configs/machines.toml`. Each BSP version is
-defined in `configs/bsp_sources.toml`. Each distribution variant is defined in
-the `configs/bdebstrap_configs/` directory.
+Further, each machine is defined in `configs/machines/<version>.toml`. Each BSP version is defined in `configs/bsp_sources.toml`. Each distribution variant is 
+defined in the `configs/bdebstrap_configs/<debian codename>` directory.
 
 Running these scripts requires root privileges.
 
-##### General Syntax:
+##### General Syntax (TI original instructions):
 
 ```bash
 sudo ./build.sh <build>
@@ -128,7 +106,8 @@ The `version.sh` file should indicate the desired build version, such as `riaps-
 
 When updating to a new TI version of the uboot_srcrev (seen in `config/bsp_sources.toml`), a new patch needs to be 
 created.  This can be done by cloning <https://git.ti.com/cgit/ti-u-boot/ti-u-boot>, checking out the indicated git 
-version tag.  From there, modify the "arch/arm/dts/k3-am642-evm.dts" and "arch/arm/dts/k3-am642-sk.dts" files to match 
-the current `patches/ti-u-boot/riaps-dts-bootargs-gpio.patch` file.  Once these files are updated with the desired 
+version tag.  From there, modify the "arch/arm/dts/k3-am642-sk.dts" file to match the current 
+`patches/ti-u-boot/riaps-dts-bootargs-gpio.patch` file.  Once these files are updated with the desired 
 changes, within the ti-u-boot repo run ```git diff > riaps-dts-bootargs-gpio.patch``` to get a new patch for this 
-version.  Then move this patch to the `patches/ti-u-boot` folder.
+version.  Then move this patch to the `patches/ti-u-boot` folder.  Another option would be to copy the patch used in
+creating the latest RIAPS compiled TI AM64x kernel (RIAPS/riaps-am64-ti-linux-kernel/ti-linux-kernel-rt/patches).
