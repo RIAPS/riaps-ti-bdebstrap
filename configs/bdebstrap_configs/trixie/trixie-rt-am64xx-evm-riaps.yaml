@@ -5,7 +5,7 @@ mmdebstrap:
   mode: auto
   keyrings:
     - /usr/share/keyrings/debian-archive-keyring.gpg
-  suite: bookworm
+  suite: trixie
   variant: standard
   hostname: am64xx-evm-riaps
   components:
