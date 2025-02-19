@@ -16,3 +16,8 @@ builds = [
     machine = "am64xx-evm-riaps"
     distro_codename = "bookworm"
     rt_linux = "true"
+
+[trixie-rt-am64xx-evm-riaps]
+    machine = "am64xx-evm-riaps"
+    distro_codename = "trixie"
+    rt_linux = "true"

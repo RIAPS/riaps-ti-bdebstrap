@@ -1,1 +1,1 @@
-export am64version="bookworm-rt-am64xx-evm-riaps"
+export am64version="trixie-rt-am64xx-evm-riaps"
