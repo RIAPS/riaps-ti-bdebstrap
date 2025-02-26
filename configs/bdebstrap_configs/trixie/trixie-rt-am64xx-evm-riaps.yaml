@@ -44,9 +44,9 @@ mmdebstrap:
     - parted
     - e2fsprogs
     # Pull RIAPS built Linux Kernel
-    - linux-image-6.1.83-k3-rt=09.02.00.010-rt-1
-    - linux-headers-6.1.83-k3-rt=09.02.00.010-rt-1
-    - linux-libc-dev=09.02.00.010-rt-1
+    - linux-image-6.6.58-k3-rt=6.6.58-1
+    - linux-headers-6.6.58-k3-rt=6.6.58-1
+    - linux-libc-dev=6.6.58-1
     # RIAPS Platform Packages
     - apparmor
     - apparmor-profiles
@@ -138,6 +138,7 @@ mmdebstrap:
       # Setup TI Debian Package Repository
     - 'mkdir -p $1/etc/apt/sources.list.d/'
     - 'wget https://raw.githubusercontent.com/TexasInstruments/ti-debpkgs/main/ti-debpkgs.sources -P $1/etc/apt/sources.list.d/'
+    - 'sed -i "s/bookworm/trixie/g" $1/etc/apt/sources.list.d/ti-debpkgs.sources'
       # Setup Apt repository preferences
     - 'mkdir -p $1/etc/apt/preferences.d/'
     - 'printf "Package: *\nPin: origin TexasInstruments.github.io\nPin-Priority: 1001" >> $1/etc/apt/preferences.d/ti-debpkgs'
