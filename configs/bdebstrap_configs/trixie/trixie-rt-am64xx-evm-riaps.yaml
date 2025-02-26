@@ -23,7 +23,7 @@ mmdebstrap:
     - libdrm-dev
     - libpam-systemd
     - locales
-    - neofetch
+    #- neofetch  -- this is not a package available in trixie
     - network-manager
     - net-tools
     - openssh-server
@@ -72,7 +72,7 @@ mmdebstrap:
     - ifupdown
     - iptables
     - libavl1
-    - libargon2-0-dev
+    - libargon2-dev
     - libasio-dev
     - libboost-dev
     - libcap-dev
@@ -88,7 +88,7 @@ mmdebstrap:
     - libjsoncpp-dev
     - liblz4-1
     - liblz4-dev
-    - libmsgpackc2
+    - libmsgpack-c2
     - libmsgpack-dev
     - libncurses5-dev
     - libpcap0.8
@@ -121,12 +121,12 @@ mmdebstrap:
     - python3-pkgconfig
     - python3-setuptools
     - python3-smbus
-    - python3.11-venv
+    - python3.12-venv
     - rdate
     - rsyslog
     - rustc
     - quota
-    - software-properties-common
+    #- software-properties-common  -- has been removed from trixie: https://github.com/wimpysworld/deb-get/issues/1215
     - tmux
     - tree
     - uuid-dev
