@@ -216,41 +216,41 @@ mmdebstrap:
     - 'upload target/riaps/sysfiles/etc/fstab /etc/fstab'
       # Install chrony
     - 'chroot "$1" apt-get install chrony -y'
-      # Build key libraries
-    - 'upload target/riaps/install_files/external_build.sh /opt/riaps/external_build.sh'
-    - 'upload target/riaps/install_files/python_installs.sh /opt/riaps/python_installs.sh'
-    - 'chroot "$1" pip3 install Cython --break-system-packages --verbose'
-    - 'chroot "$1" chmod a+x /opt/riaps/external_build.sh'
-    - 'chroot "$1" /bin/bash -c "/opt/riaps/external_build.sh" >"$1/opt/riaps/external_build.log" 2>&1 || true'
-    - 'cp $1/opt/riaps/external_build.log $1/../../../logs/external_build.log'
-      # Setup TSN libraries
-    - 'chroot "$1" apt-get remove libcurl4-gnutls-dev -y'
-    - 'chroot "$1" apt-get install libcurl4-openssl-dev -y'
-    - 'upload target/riaps/install_files/tsn_lib_build.sh /opt/riaps/tsn_lib_build.sh'
-    - 'upload target/riaps/install_files/nw-configurator.c /opt/riaps/nw-configurator.c'
-      # TODO: on the next kernel build, this line can be remove by adding "CONFIG_NET_SCH_TAPRIO=y" instead of =m
-    #- 'upload target/riaps/sysfiles/etc/modules-load.d/sch_taprio.conf /etc/modules-load.d/sch_taprio.conf'
-    - 'chroot "$1" chmod a+x /opt/riaps/tsn_lib_build.sh'
-    - 'chroot "$1" /bin/bash -c "/opt/riaps/tsn_lib_build.sh" >"$1/opt/riaps/tsn_lib_build.log" 2>&1 || true'
-    - 'cp $1/opt/riaps/tsn_lib_build.log $1/../../../logs/tsn_lib_build.log'
-      # Upload sysrepod.service and netopeer2-serverd.service (both left disabled)
-    - 'upload target/riaps/sysfiles/etc/systemd/system/sysrepod.service /etc/systemd/system/sysrepod.service'
-    - 'upload target/riaps/sysfiles/etc/systemd/system/netopeer2-serverd.service /etc/systemd/system/netopeer2-serverd.service'
-      # Add Yang Models
-    - 'chroot "$1" mkdir -p /etc/sysrepo/data/notifications'
-    - 'chroot "$1" mkdir -p /etc/sysrepo/yang'
-    - 'chroot "$1" cp /usr/local/share/yang/modules/sysrepo/ietf-netconf-notifications.yang /etc/sysrepo/yang/ietf-netconf-notifications@2012-02-06.yang'
-    - 'chroot "$1" cp /usr/local/share/yang/modules/sysrepo/ietf-netconf-with-defaults.yang /etc/sysrepo/yang/ietf-netconf-with-defaults@2011-06-01.yang'
-    - 'chroot "$1" cp /usr/local/share/yang/modules/sysrepo/ietf-netconf.yang /etc/sysrepo/yang/ietf-netconf@2011-06-01.yang'
-    - 'upload target/riaps/sysfiles/usr/local/share/netopeer2/setup.sh /usr/local/share/netopeer2/setup.sh'
-    - 'chroot "$1" chmod a+x /usr/local/share/netopeer2/setup.sh'
-      # Install python
-    - 'chroot "$1" chmod a+x /opt/riaps/python_installs.sh'
-    - 'chroot "$1" /bin/bash -c "/opt/riaps/python_installs.sh" >"$1/opt/riaps/python_installs.log" 2>&1 || true'
-    - 'cp $1/opt/riaps/python_installs.log $1/../../../logs/python_installs.log' 
-      # Set iptables to legacy version
-    - 'chroot "$1" update-alternatives --set iptables /usr/sbin/iptables-legacy'
-    - 'chroot "$1" update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy'
+    #   # Build key libraries
+    # - 'upload target/riaps/install_files/external_build.sh /opt/riaps/external_build.sh'
+    # - 'upload target/riaps/install_files/python_installs.sh /opt/riaps/python_installs.sh'
+    # - 'chroot "$1" pip3 install Cython --break-system-packages --verbose'
+    # - 'chroot "$1" chmod a+x /opt/riaps/external_build.sh'
+    # - 'chroot "$1" /bin/bash -c "/opt/riaps/external_build.sh" >"$1/opt/riaps/external_build.log" 2>&1 || true'
+    # - 'cp $1/opt/riaps/external_build.log $1/../../../logs/external_build.log'
+    #   # Setup TSN libraries
+    # - 'chroot "$1" apt-get remove libcurl4-gnutls-dev -y'
+    # - 'chroot "$1" apt-get install libcurl4-openssl-dev -y'
+    # - 'upload target/riaps/install_files/tsn_lib_build.sh /opt/riaps/tsn_lib_build.sh'
+    # - 'upload target/riaps/install_files/nw-configurator.c /opt/riaps/nw-configurator.c'
+    #   # TODO: on the next kernel build, this line can be remove by adding "CONFIG_NET_SCH_TAPRIO=y" instead of =m
+    # #- 'upload target/riaps/sysfiles/etc/modules-load.d/sch_taprio.conf /etc/modules-load.d/sch_taprio.conf'
+    # - 'chroot "$1" chmod a+x /opt/riaps/tsn_lib_build.sh'
+    # - 'chroot "$1" /bin/bash -c "/opt/riaps/tsn_lib_build.sh" >"$1/opt/riaps/tsn_lib_build.log" 2>&1 || true'
+    # - 'cp $1/opt/riaps/tsn_lib_build.log $1/../../../logs/tsn_lib_build.log'
+    #   # Upload sysrepod.service and netopeer2-serverd.service (both left disabled)
+    # - 'upload target/riaps/sysfiles/etc/systemd/system/sysrepod.service /etc/systemd/system/sysrepod.service'
+    # - 'upload target/riaps/sysfiles/etc/systemd/system/netopeer2-serverd.service /etc/systemd/system/netopeer2-serverd.service'
+    #   # Add Yang Models
+    # - 'chroot "$1" mkdir -p /etc/sysrepo/data/notifications'
+    # - 'chroot "$1" mkdir -p /etc/sysrepo/yang'
+    # - 'chroot "$1" cp /usr/local/share/yang/modules/sysrepo/ietf-netconf-notifications.yang /etc/sysrepo/yang/ietf-netconf-notifications@2012-02-06.yang'
+    # - 'chroot "$1" cp /usr/local/share/yang/modules/sysrepo/ietf-netconf-with-defaults.yang /etc/sysrepo/yang/ietf-netconf-with-defaults@2011-06-01.yang'
+    # - 'chroot "$1" cp /usr/local/share/yang/modules/sysrepo/ietf-netconf.yang /etc/sysrepo/yang/ietf-netconf@2011-06-01.yang'
+    # - 'upload target/riaps/sysfiles/usr/local/share/netopeer2/setup.sh /usr/local/share/netopeer2/setup.sh'
+    # - 'chroot "$1" chmod a+x /usr/local/share/netopeer2/setup.sh'
+    #   # Install python
+    # - 'chroot "$1" chmod a+x /opt/riaps/python_installs.sh'
+    # - 'chroot "$1" /bin/bash -c "/opt/riaps/python_installs.sh" >"$1/opt/riaps/python_installs.log" 2>&1 || true'
+    # - 'cp $1/opt/riaps/python_installs.log $1/../../../logs/python_installs.log' 
+    #   # Set iptables to legacy version
+    # - 'chroot "$1" update-alternatives --set iptables /usr/sbin/iptables-legacy'
+    # - 'chroot "$1" update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy'
       # Install RIAPS packages - release image without RIAPS packages
     #- 'chroot "$1" apt-get install riaps-pycom-am64x riaps-timesync-arm64'
       # Set locale
@@ -258,11 +258,11 @@ mmdebstrap:
     - 'chroot "$1" chmod a+x /opt/riaps/locale_setup.sh'
     - 'chroot "$1" /bin/bash -c "/opt/riaps/locale_setup.sh" >"$1/opt/riaps/locale_setup.log" 2>&1 || true'
     - 'cp $1/opt/riaps/locale_setup.log $1/../../../logs/locale_setup.log'
-      # Remove packages and files used in image creation
-    - 'chroot "$1" apt-get remove libboost-dev libcap-dev libffi-dev libgnutls28-dev libncurses5-dev libncurses-dev -y'
-    - 'chroot "$1" apt-get remove libsystemd-dev libmsgpack-dev libpcap-dev uuid-dev liblz4-dev nettle-dev bison -y'
-    - 'chroot "$1" apt-get remove libcurl4-gnutls-dev libasio-dev libargon2-0-dev libhttp-parser-dev libjsoncpp-dev libzmq3-dev -y'
-    - 'chroot "$1" apt autoremove -y'
-    - 'chroot "$1" pip3 uninstall --break-system-packages cython -y'
-    - 'chroot "$1" rm -R /opt/riaps'
+    #   # Remove packages and files used in image creation
+    # - 'chroot "$1" apt-get remove libboost-dev libcap-dev libffi-dev libgnutls28-dev libncurses5-dev libncurses-dev -y'
+    # - 'chroot "$1" apt-get remove libsystemd-dev libmsgpack-dev libpcap-dev uuid-dev liblz4-dev nettle-dev bison -y'
+    # - 'chroot "$1" apt-get remove libcurl4-gnutls-dev libasio-dev libargon2-0-dev libhttp-parser-dev libjsoncpp-dev libzmq3-dev -y'
+    # - 'chroot "$1" apt autoremove -y'
+    # - 'chroot "$1" pip3 uninstall --break-system-packages cython -y'
+    # - 'chroot "$1" rm -R /opt/riaps'
 
