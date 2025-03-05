@@ -90,6 +90,7 @@ mmdebstrap:
     - liblz4-dev
     - libmsgpack-c2
     - libmsgpack-dev
+    - libmsgpack-cxx-dev
     - libncurses5-dev
     - libpcap0.8
     - libpcap-dev
@@ -157,7 +158,7 @@ mmdebstrap:
     - 'mv $1/tmp/riaps/riapspublic.key.gpg $1/usr/share/keyrings/riaps-archive-keyring.gpg'
     - 'upload target/riaps/sysfiles/etc/apt/sources.list.d/riaps-am64-kernel.list /etc/apt/sources.list.d/riaps-am64-kernel.list'
       # Setup ZeroMQ Repo to get the draft APIs
-    - 'wget https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/Debian_12/Release.key -P $1/tmp/riaps'
+    - 'wget https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/Debian_Next/Release.key -P $1/tmp/riaps'
     - 'gpg --dearmor $1/tmp/riaps/Release.key'
     - 'mv $1/tmp/riaps/Release.key.gpg $1/usr/share/keyrings/zeromq-archive-keyring.gpg'
     - 'upload target/riaps/sysfiles/etc/apt/sources.list.d/zeromq.list /etc/apt/sources.list.d/zeromq.list'
@@ -259,10 +260,11 @@ mmdebstrap:
     - 'chroot "$1" /bin/bash -c "/opt/riaps/locale_setup.sh" >"$1/opt/riaps/locale_setup.log" 2>&1 || true'
     - 'cp $1/opt/riaps/locale_setup.log $1/../../../logs/locale_setup.log'
       # Remove packages and files used in image creation
-    - 'chroot "$1" apt-get remove libboost-dev libcap-dev libffi-dev libgnutls28-dev libncurses5-dev libncurses-dev -y'
-    - 'chroot "$1" apt-get remove libsystemd-dev libmsgpack-dev libpcap-dev uuid-dev liblz4-dev nettle-dev bison -y'
-    - 'chroot "$1" apt-get remove libcurl4-gnutls-dev libasio-dev libargon2-0-dev libhttp-parser-dev libjsoncpp-dev libzmq3-dev -y'
+      # MM TODO:  Keep development packages for now while getting the full image working
+    #- 'chroot "$1" apt-get remove libboost-dev libcap-dev libffi-dev libgnutls28-dev libncurses5-dev libncurses-dev -y'
+    #- 'chroot "$1" apt-get remove libsystemd-dev libmsgpack-dev libpcap-dev uuid-dev liblz4-dev nettle-dev bison -y'
+    #- 'chroot "$1" apt-get remove libcurl4-gnutls-dev libasio-dev libargon2-0-dev libhttp-parser-dev libjsoncpp-dev libzmq3-dev -y'
     - 'chroot "$1" apt autoremove -y'
-    - 'chroot "$1" pip3 uninstall --break-system-packages cython -y'
+    #- 'chroot "$1" pip3 uninstall --break-system-packages cython -y'
     - 'chroot "$1" rm -R /opt/riaps'
 

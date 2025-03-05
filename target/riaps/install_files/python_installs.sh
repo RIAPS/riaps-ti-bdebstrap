@@ -91,7 +91,7 @@ py_lmdb_install() {
     TMP=`mktemp -d`
     git clone https://github.com/jnwatson/py-lmdb.git $TMP/python-lmdb
     cd $TMP/python-lmdb/
-    git checkout py-lmdb_1.4.1
+    git checkout py-lmdb_1.6.2
     sudo -E pip3 install . --break-system-packages --verbose
     cd $PREVIOUS_PWD
     sudo rm -rf $TMP
@@ -112,7 +112,8 @@ pip3_3rd_party_installs(){
     pip3 install --break-system-packages 'cgroups==0.1.0' 'cgroupspy==0.2.2' --verbose
     pip3 install --break-system-packages 'pyroute2==0.7.9' 'pyserial==3.5' --verbose
     pip3 install --break-system-packages 'pybind11==2.11.1' 'toml==0.10.2' 'pycryptodomex==3.19.0' --verbose
-    pip3 install --break-system-packages 'rpyc==5.3.1' 'parse==1.19.1' 'butter==0.13.1' --verbose
+    pip3 install --break-system-packages 'rpyc==5.3.1' 'parse==1.19.1' --verbose
+    #pip3 install --break-system-packages 'butter==0.13.1' --verbose   - doesn't work with python 3.13 yet
     pip3 install --break-system-packages 'gpiod==1.5.4' 'spdlog==2.0.6' --verbose
     pip3 install --break-system-packages 'psutil==5.9.0' 'pyyaml==6.0.1' --verbose
     pip3 install --break-system-packages 'filelock==3.15.4' --verbose
@@ -124,9 +125,10 @@ pip3_3rd_party_installs(){
 }
 
 
-pycapnp_install
+#pycapnp_install - doesn't work with python 3.13 yet
 apparmor_monkeys_install
 py_lmdb_install
+#MM TODO: note that butter is not currently installed due to not working with python 3.13 yet
 pip3_3rd_party_installs
 prctl_install
 pyzmq_install

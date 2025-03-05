@@ -144,7 +144,7 @@ build_opendht() {
     git checkout v3.1.6
     start=`date +%s`
     ./autogen.sh
-    ./configure --prefix=/usr/local
+    CFLAGS="-D_XOPEN_SOURCE=500" ./configure --prefix=/usr/local
     make -j2
     sudo make install
     end=`date +%s`
