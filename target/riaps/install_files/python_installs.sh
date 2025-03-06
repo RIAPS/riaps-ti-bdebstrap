@@ -16,40 +16,46 @@ apparmor_monkeys_install() {
 # NOTE: DEPRECATION: --no-binary currently disables reading from the cache of locally built wheels. 
 # Replaced it with recommended '--no-cache-dir' option.
 pyzmq_install(){
-    PREVIOUS_PWD=$PWD
-    TMP=`mktemp -d`
-    git clone https://github.com/zeromq/pyzmq.git $TMP/pyzmq
-    cd $TMP/pyzmq
-    git checkout v25.1.2
-    ZMQ_DRAFT_API=1 sudo -E pip3 install --break-system-packages -v --no-cache-dir .
-    cd $PREVIOUS_PWD
-    sudo rm -rf $TMP
+    #MM TODO: for now just install the pip packages
+    pip3 install --break-system-packages pyzmq==25.1.2
+    #PREVIOUS_PWD=$PWD
+    #TMP=`mktemp -d`
+    #git clone https://github.com/zeromq/pyzmq.git $TMP/pyzmq
+    #cd $TMP/pyzmq
+    #git checkout v25.1.2
+    #ZMQ_DRAFT_API=1 sudo -E pip3 install --break-system-packages -v --no-cache-dir .
+    #cd $PREVIOUS_PWD
+    #sudo rm -rf $TMP
     echo ">>>>> installed pyzmq"
 }
 
 # Install bindings for czmq. Must be run after pyzmq, czmq install.
 czmq_pybindings_install(){
-    PREVIOUS_PWD=$PWD
-    TMP=`mktemp -d`
-    git clone https://github.com/zeromq/czmq.git $TMP/czmq_pybindings
-    cd $TMP/czmq_pybindings/bindings/python
-    git checkout v4.2.1
-    sudo pip3 install --break-system-packages . --verbose
-    cd $PREVIOUS_PWD
-    sudo rm -rf $TMP
+    #MM TODO: for now just install the pip packages
+    pip3 install --break-system-packages czmq==4.2.1
+    #PREVIOUS_PWD=$PWD
+    #TMP=`mktemp -d`
+    #git clone https://github.com/zeromq/czmq.git $TMP/czmq_pybindings
+    #cd $TMP/czmq_pybindings/bindings/python
+    #git checkout v4.2.1
+    #sudo pip3 install --break-system-packages . --verbose
+    #cd $PREVIOUS_PWD
+    #sudo rm -rf $TMP
     echo ">>>>> installed CZMQ pybindings"
 }
 
 # Install bindings for zyre. Must be run after zyre, pyzmq install.
 zyre_pybindings_install(){
-    PREVIOUS_PWD=$PWD
-    TMP=`mktemp -d`
-    git clone https://github.com/zeromq/zyre.git $TMP/zyre_pybindings
-    cd $TMP/zyre_pybindings/bindings/python
-    git checkout v2.0.1
-    sudo pip3 install --break-system-packages . --verbose
-    cd $PREVIOUS_PWD
-    sudo rm -rf $TMP
+    #MM TODO: for now just install the pip packages
+    pip3 install --break-system-packages zyre==2.0.1
+    #PREVIOUS_PWD=$PWD
+    #TMP=`mktemp -d`
+    #git clone https://github.com/zeromq/zyre.git $TMP/zyre_pybindings
+    #cd $TMP/zyre_pybindings/bindings/python
+    #git checkout v2.0.1
+    #sudo pip3 install --break-system-packages . --verbose
+    #cd $PREVIOUS_PWD
+    #sudo rm -rf $TMP
     echo ">>>>> installed Zyre pybindings"
 }
 

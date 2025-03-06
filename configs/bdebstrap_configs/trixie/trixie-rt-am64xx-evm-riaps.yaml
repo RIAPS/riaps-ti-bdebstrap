@@ -122,6 +122,8 @@ mmdebstrap:
     - python3-pkgconfig
     - python3-setuptools
     - python3-smbus
+    - python3.12
+    - python3.12-dev
     - python3.12-venv
     - rdate
     - rsyslog
@@ -158,10 +160,11 @@ mmdebstrap:
     - 'mv $1/tmp/riaps/riapspublic.key.gpg $1/usr/share/keyrings/riaps-archive-keyring.gpg'
     - 'upload target/riaps/sysfiles/etc/apt/sources.list.d/riaps-am64-kernel.list /etc/apt/sources.list.d/riaps-am64-kernel.list'
       # Setup ZeroMQ Repo to get the draft APIs
-    - 'wget https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/Debian_Next/Release.key -P $1/tmp/riaps'
-    - 'gpg --dearmor $1/tmp/riaps/Release.key'
-    - 'mv $1/tmp/riaps/Release.key.gpg $1/usr/share/keyrings/zeromq-archive-keyring.gpg'
-    - 'upload target/riaps/sysfiles/etc/apt/sources.list.d/zeromq.list /etc/apt/sources.list.d/zeromq.list'
+      # MM TODO: Debian_13 is not yet available and using Next did not work, so using basic zmq files for now
+    #- 'wget https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/Debian_Next/Release.key -P $1/tmp/riaps'
+    #- 'gpg --dearmor $1/tmp/riaps/Release.key'
+    #- 'mv $1/tmp/riaps/Release.key.gpg $1/usr/share/keyrings/zeromq-archive-keyring.gpg'
+    #- 'upload target/riaps/sysfiles/etc/apt/sources.list.d/zeromq.list /etc/apt/sources.list.d/zeromq.list'
   essential-hooks:
     # FIXME: Find a better workaround instead of sleep
     - 'sleep 10' # workaround for /proc resource busy unable to umount issue
@@ -246,6 +249,10 @@ mmdebstrap:
     - 'upload target/riaps/sysfiles/usr/local/share/netopeer2/setup.sh /usr/local/share/netopeer2/setup.sh'
     - 'chroot "$1" chmod a+x /usr/local/share/netopeer2/setup.sh'
       # Install python
+      # Set default python to 3.12
+    - 'chroot "$1" sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1'
+    - 'chroot "$1" sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 2'
+    - 'chroot "$1" sudo update-alternatives --set python3 /usr/bin/python3.12'
     - 'chroot "$1" chmod a+x /opt/riaps/python_installs.sh'
     - 'chroot "$1" /bin/bash -c "/opt/riaps/python_installs.sh" >"$1/opt/riaps/python_installs.log" 2>&1 || true'
     - 'cp $1/opt/riaps/python_installs.log $1/../../../logs/python_installs.log' 
