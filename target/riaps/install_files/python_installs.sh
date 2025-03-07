@@ -31,31 +31,27 @@ pyzmq_install(){
 
 # Install bindings for czmq. Must be run after pyzmq, czmq install.
 czmq_pybindings_install(){
-    #MM TODO: for now just install the pip packages
-    pip3 install --break-system-packages czmq==4.2.1
-    #PREVIOUS_PWD=$PWD
-    #TMP=`mktemp -d`
-    #git clone https://github.com/zeromq/czmq.git $TMP/czmq_pybindings
-    #cd $TMP/czmq_pybindings/bindings/python
-    #git checkout v4.2.1
-    #sudo pip3 install --break-system-packages . --verbose
-    #cd $PREVIOUS_PWD
-    #sudo rm -rf $TMP
+    PREVIOUS_PWD=$PWD
+    TMP=`mktemp -d`
+    git clone https://github.com/zeromq/czmq.git $TMP/czmq_pybindings
+    cd $TMP/czmq_pybindings/bindings/python
+    git checkout v4.2.1
+    sudo pip3 install --break-system-packages . --verbose
+    cd $PREVIOUS_PWD
+    sudo rm -rf $TMP
     echo ">>>>> installed CZMQ pybindings"
 }
 
 # Install bindings for zyre. Must be run after zyre, pyzmq install.
 zyre_pybindings_install(){
-    #MM TODO: for now just install the pip packages
-    pip3 install --break-system-packages zyre==2.0.1
-    #PREVIOUS_PWD=$PWD
-    #TMP=`mktemp -d`
-    #git clone https://github.com/zeromq/zyre.git $TMP/zyre_pybindings
-    #cd $TMP/zyre_pybindings/bindings/python
-    #git checkout v2.0.1
-    #sudo pip3 install --break-system-packages . --verbose
-    #cd $PREVIOUS_PWD
-    #sudo rm -rf $TMP
+    PREVIOUS_PWD=$PWD
+    TMP=`mktemp -d`
+    git clone https://github.com/zeromq/zyre.git $TMP/zyre_pybindings
+    cd $TMP/zyre_pybindings/bindings/python
+    git checkout v2.0.1
+    sudo pip3 install --break-system-packages . --verbose
+    cd $PREVIOUS_PWD
+    sudo rm -rf $TMP
     echo ">>>>> installed Zyre pybindings"
 }
 
