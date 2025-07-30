@@ -162,15 +162,15 @@ mmdebstrap:
     #- 'mv $1/tmp/riaps/Release.key.gpg $1/usr/share/keyrings/zeromq-archive-keyring.gpg'
     - '/bin/bash -c "wget -O- https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/Debian_12/Release.key | gpg --dearmor > \$1/usr/share/keyrings/zeromq-archive-keyring.gpg"'
     - 'upload target/riaps/sysfiles/etc/apt/sources.list.d/zeromq.list /etc/apt/sources.list.d/zeromq.list'
-      # Disable DKMS during cross-compilation build
+  essential-hooks:
+    # FIXME: Find a better workaround instead of sleep
+    - 'sleep 10' # workaround for /proc resource busy unable to umount issue
+      # Disable DKMS due to cryptodev-linux-dkms package installation
     - 'mv $1/usr/sbin/dkms $1/usr/sbin/dkms.disabled || true'
     - 'echo "#!/bin/bash" > $1/usr/sbin/dkms'
     - 'echo "echo \"DKMS disabled during build\"" >> $1/usr/sbin/dkms'
     - 'echo "exit 0" >> $1/usr/sbin/dkms'
     - 'chmod +x $1/usr/sbin/dkms'
-  essential-hooks:
-    # FIXME: Find a better workaround instead of sleep
-    - 'sleep 10' # workaround for /proc resource busy unable to umount issue
   customize-hooks:
       # Remove passwd for root user
     - 'chroot "$1" passwd --delete root'
@@ -191,6 +191,8 @@ mmdebstrap:
     - 'chroot "$1" mkdir -p /etc/systemd/system/'
     - 'upload target/resize_rootfs/resize_rootfs.service /etc/systemd/system/resize_rootfs.service'
     - '$BDEBSTRAP_HOOKS/enable-units "$1" resize_rootfs'
+      # Restore DKMS functionality for target system
+    - 'mv $1/usr/sbin/dkms.disabled $1/usr/sbin/dkms || true'
       # Add RIAPS Specific Hooks
       # Add RIAPS specific package repo
     - 'upload target/riaps/sysfiles/etc/apt/sources.list.d/riaps.list /etc/apt/sources.list.d/riaps.list'
@@ -272,6 +274,5 @@ mmdebstrap:
     - 'chroot "$1" apt autoremove -y'
     - 'chroot "$1" pip3 uninstall --break-system-packages cython -y'
     - 'chroot "$1" rm -R /opt/riaps'
-      # Restore DKMS functionality for target system
-    - 'mv $1/usr/sbin/dkms.disabled $1/usr/sbin/dkms || true'
+
 
