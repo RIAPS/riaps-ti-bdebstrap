@@ -66,6 +66,8 @@ mmdebstrap:
     - debconf-utils
     - ethtool
     - flex
+    - gcc
+    - g++
     - git
     - gpsd
     - gpiod
@@ -102,6 +104,7 @@ mmdebstrap:
     - libssh-dev
     - libssl3
     - libssl-dev
+    - libstdc++-12-dev
     - libsystemd-dev
     - libtool
     - libtool-bin
