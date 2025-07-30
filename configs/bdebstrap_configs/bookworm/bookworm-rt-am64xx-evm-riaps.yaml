@@ -159,7 +159,7 @@ mmdebstrap:
     #- 'wget https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/Debian_12/Release.key -P $1/tmp/riaps'
     #- 'gpg --dearmor $1/tmp/riaps/Release.key -o $1/tmp/riaps/Release.key.gpg'
     #- 'mv $1/tmp/riaps/Release.key.gpg $1/usr/share/keyrings/zeromq-archive-keyring.gpg'
-    - '/bin/bash -c "wget -O- https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/Debian_12/Release.key | gpg --dearmor > $1/usr/share/keyrings/zeromq-archive-keyring.gpg"'
+    - '/bin/bash -c "wget -O- https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-draft/Debian_12/Release.key | gpg --dearmor > \$1/usr/share/keyrings/zeromq-archive-keyring.gpg"'
     - 'upload target/riaps/sysfiles/etc/apt/sources.list.d/zeromq.list /etc/apt/sources.list.d/zeromq.list'
   essential-hooks:
     # FIXME: Find a better workaround instead of sleep
