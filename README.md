@@ -107,7 +107,6 @@ The `version.sh` file should indicate the desired build version, such as `riaps-
 When updating to a new TI version of the uboot_srcrev (seen in `config/bsp_sources.toml`), a new patch needs to be 
 created.  This can be done by cloning <https://git.ti.com/cgit/ti-u-boot/ti-u-boot>, checking out the indicated git 
 version tag.  From there, modify the "arch/arm/dts/k3-am642-sk.dts" file to match the current 
-`patches/ti-u-boot/riaps-dts-bootargs-gpio.patch` file.  Once these files are updated with the desired 
-changes, within the ti-u-boot repo run ```git diff > riaps-dts-bootargs-gpio.patch``` to get a new patch for this 
-version.  Then move this patch to the `patches/ti-u-boot` folder.  Another option would be to copy the patch used in
-creating the latest RIAPS compiled TI AM64x kernel (RIAPS/riaps-am64-ti-linux-kernel/ti-linux-kernel-rt/patches).
+`patches/ti-u-boot/riaps-dts-bootargs-u-boot.patch` file.  Once these files are updated with the desired 
+changes, within the ti-u-boot repo run ```git diff > riaps-dts-bootargs-u-boot.patch``` to get a new patch for this 
+version.  Then move this patch to the `patches/ti-u-boot` folder.  Make sure the 'bootargs' line matches the patch used in creating the latest RIAPS compiled TI AM64x kernel (RIAPS/riaps-am64-ti-linux-kernel/ti-linux-kernel-rt/patches).
