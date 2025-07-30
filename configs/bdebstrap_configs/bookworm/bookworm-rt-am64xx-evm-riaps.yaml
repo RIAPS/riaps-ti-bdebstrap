@@ -236,7 +236,8 @@ mmdebstrap:
     - 'upload target/riaps/install_files/python_installs.sh /opt/riaps/python_installs.sh'
     - 'chroot "$1" pip3 install Cython --break-system-packages --verbose'
     - 'chroot "$1" chmod a+x /opt/riaps/external_build.sh'
-    - 'chroot "$1" /bin/bash -c "/opt/riaps/external_build.sh" >"$1/opt/riaps/external_build.log" 2>&1 || true'
+    #- 'chroot "$1" /bin/bash -c "/opt/riaps/external_build.sh" >"$1/opt/riaps/external_build.log" 2>&1 || true'
+    - 'chroot "$1" /usr/bin/env -i PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin HOME=/root /bin/bash -c "/opt/riaps/external_build.sh" >"$1/opt/riaps/external_build.log" 2>&1 || true'
     - 'cp $1/opt/riaps/external_build.log $1/../../../logs/external_build.log'
       # Setup TSN libraries
     - 'chroot "$1" apt-get remove libcurl4-gnutls-dev -y'
@@ -246,7 +247,8 @@ mmdebstrap:
       # TODO: on the next kernel build, this line can be remove by adding "CONFIG_NET_SCH_TAPRIO=y" instead of =m
     #- 'upload target/riaps/sysfiles/etc/modules-load.d/sch_taprio.conf /etc/modules-load.d/sch_taprio.conf'
     - 'chroot "$1" chmod a+x /opt/riaps/tsn_lib_build.sh'
-    - 'chroot "$1" /bin/bash -c "/opt/riaps/tsn_lib_build.sh" >"$1/opt/riaps/tsn_lib_build.log" 2>&1 || true'
+    #- 'chroot "$1" /bin/bash -c "/opt/riaps/tsn_lib_build.sh" >"$1/opt/riaps/tsn_lib_build.log" 2>&1 || true'
+    - 'chroot "$1" /usr/bin/env -i PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin HOME=/root /bin/bash -c "/opt/riaps/tsn_lib_build.sh" >"$1/opt/riaps/tsn_lib_build.log" 2>&1 || true'
     - 'cp $1/opt/riaps/tsn_lib_build.log $1/../../../logs/tsn_lib_build.log'
       # Upload sysrepod.service and netopeer2-serverd.service (both left disabled)
     - 'upload target/riaps/sysfiles/etc/systemd/system/sysrepod.service /etc/systemd/system/sysrepod.service'

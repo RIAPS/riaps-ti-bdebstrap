@@ -4,6 +4,23 @@ set -e
 # Note that using CMake with qemu for an arm 32 processor is a known issue
 # (https://gitlab.kitware.com/cmake/cmake/-/issues/20568). So doing individual builds
 build_external_libraries() {
+    # Debug environment
+    echo "=== DEBUG INFO ==="
+    which gcc
+    which g++
+    gcc --version
+    g++ --version
+    echo "==================="
+
+    # Test C++11 directly
+    echo '#include <memory>' > /tmp/cpp11test.cpp
+    echo 'int main() { auto p = std::make_shared<int>(42); return 0; }' >> /tmp/cpp11test.cpp
+    if g++ -std=c++11 /tmp/cpp11test.cpp -o /tmp/cpp11test; then
+        echo "C++11 test: PASSED"
+    else
+        echo "C++11 test: FAILED"
+    fi
+
     build_capnproto
     build_lmdb
     build_fmt
