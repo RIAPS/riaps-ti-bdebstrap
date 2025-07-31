@@ -77,7 +77,9 @@ mmdebstrap:
     - libavl1
     - libargon2-0-dev
     - libasio-dev
+    - libatomic1
     - libboost-dev
+    - libc6-dev
     - libcap-dev
     - libcurl4-gnutls-dev
     #- libcurl4-openssl-dev -- this package conflicts with libcurl4-gnutls-dev (needed for opendht)

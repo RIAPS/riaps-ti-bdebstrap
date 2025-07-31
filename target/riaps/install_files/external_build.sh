@@ -42,7 +42,21 @@ build_capnproto() {
     git checkout v1.0.1.1
     start=`date +%s`
     autoreconf -i c++
-    cd c++ && ./configure --enable-shared
+    
+    #cd c++ && ./configure --enable-shared
+    cd c++
+    # Debug: See what configure is actually testing
+    echo "=== CONFIG.LOG DEBUG ==="
+    ./configure --enable-shared 2>&1 | tee configure_output.log
+    
+    # If configure failed, show the config.log
+    if [ -f config.log ]; then
+        echo "=== LAST 50 LINES OF CONFIG.LOG ==="
+        tail -50 config.log
+        echo "=== SEARCHING FOR C++11 TESTS IN CONFIG.LOG ==="
+        grep -A 10 -B 10 "C++11 library features" config.log || true
+    fi
+
     cd ..
     make -j2 -C c++
     sudo make -C c++ install
