@@ -114,6 +114,7 @@ mmdebstrap:
     - linuxptp
     - libzmq5
     - libzmq3-dev
+    - linux-libc-dev-arm64-cross
     - make
     - nano
     - nettle-dev
